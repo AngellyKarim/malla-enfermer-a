@@ -1,5 +1,3 @@
-// script.js
-
 const cursos = [
   { codigo: "AC4012", nombre: "INGLÉS I", creditos: 3, ciclo: 1, requisitos: [] },
   { codigo: "EN7011", nombre: "PROCESOS BIOLÓGICOS", creditos: 6, ciclo: 1, requisitos: [] },
