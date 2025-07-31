@@ -61,7 +61,7 @@ const cursos = [
   { codigo: "EN7101", nombre: "PRÁCTICAS PRE-PROFESIONALES II", creditos: 14, prerrequisitos: ["EN7091"], ciclo: 10, anio: 5 },
   { codigo: "EN7102", nombre: "SEMINARIOS DE INTEGRACIÓN CLÍNICA II", creditos: 1, prerrequisitos: ["EN7092"], ciclo: 10, anio: 5 },
   { codigo: "EN7103", nombre: "TRABAJO DE INVESTIGACIÓN", creditos: 3, prerrequisitos: ["EN7093"], ciclo: 10, anio: 5 }
- ];
+];
 
 const cursosElectivos = [
   { codigo: "AC4E01", nombre: "EDUCACIÓN, DERECHOS Y AUTONOMÍA DE LAS PERSONAS CON DISCAPACIDAD", creditos: 2 },
@@ -86,7 +86,7 @@ const btnModoOscuro = document.getElementById("modo-oscuro-btn");
 function calcularCreditosTotales() {
   return cursos
     .filter(curso => !curso.codigo.startsWith("ELC"))
-    .reduce((sum, curso) => sum + curso.creditos, 0) + 3 * 3; // 3 electivos x 3 créditos
+    .reduce((sum, curso) => sum + curso.creditos, 0) + 3 * 3;
 }
 
 function calcularCreditosAprobados() {
@@ -138,51 +138,29 @@ function renderizarMalla() {
       contenedorCiclo.appendChild(tituloCiclo);
 
       cursosCiclo.forEach(curso => {
-        if (curso.codigo.startsWith("ELC")) {
-          const template = document.getElementById("electivo-template");
-          const nodo = template.content.cloneNode(true);
-          const select = nodo.querySelector("select");
-          cursosElectivos.forEach(e => {
-            const option = document.createElement("option");
-            option.value = e.codigo;
-            option.textContent = `${e.codigo} - ${e.nombre}`;
-            select.appendChild(option);
-          });
-          select.value = cursosAprobados[curso.codigo] || "";
-          select.addEventListener("change", () => {
-            if (select.value) {
-              cursosAprobados[curso.codigo] = select.value;
-              localStorage.setItem("cursosAprobados", JSON.stringify(cursosAprobados));
-              actualizarCreditos();
-              renderizarMalla();
-            }
-          });
-          contenedorCiclo.appendChild(nodo);
-        } else {
-          const template = document.getElementById("curso-template");
-          const nodo = template.content.cloneNode(true);
-          nodo.querySelector(".nombre-curso").textContent = curso.nombre;
-          nodo.querySelector(".codigo-curso").textContent = curso.codigo;
-          nodo.querySelector(".creditos-curso").textContent = `${curso.creditos} créditos`;
+        const template = document.getElementById("curso-template");
+        const nodo = template.content.cloneNode(true);
+        nodo.querySelector(".nombre-curso").textContent = curso.nombre;
+        nodo.querySelector(".codigo-curso").textContent = curso.codigo;
+        nodo.querySelector(".creditos-curso").textContent = `${curso.creditos} créditos`;
 
-          const boton = nodo.querySelector(".btn-aprobar");
-          if (cursosAprobados[curso.codigo]) {
-            boton.textContent = "Aprobado";
-            boton.disabled = true;
-            nodo.querySelector(".curso").classList.add("aprobado");
-          } else if (!tienePrerrequisitosAprobados(curso)) {
-            boton.textContent = "Bloqueado";
-            boton.disabled = true;
-          } else {
-            boton.addEventListener("click", () => {
-              cursosAprobados[curso.codigo] = true;
-              localStorage.setItem("cursosAprobados", JSON.stringify(cursosAprobados));
-              actualizarCreditos();
-              renderizarMalla();
-            });
-          }
-          contenedorCiclo.appendChild(nodo);
+        const cursoDiv = nodo.querySelector(".curso");
+
+        if (cursosAprobados[curso.codigo]) {
+          cursoDiv.classList.add("aprobado");
+        } else if (!tienePrerrequisitosAprobados(curso)) {
+          cursoDiv.classList.add("bloqueado");
         }
+
+        cursoDiv.addEventListener("click", () => {
+          if (!tienePrerrequisitosAprobados(curso)) return;
+          cursosAprobados[curso.codigo] = true;
+          localStorage.setItem("cursosAprobados", JSON.stringify(cursosAprobados));
+          actualizarCreditos();
+          renderizarMalla();
+        });
+
+        contenedorCiclo.appendChild(nodo);
       });
       contenedorAnio.appendChild(contenedorCiclo);
     }
