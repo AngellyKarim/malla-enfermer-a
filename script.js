@@ -66,23 +66,6 @@ const cursos = [
   { codigo: "EN7101", nombre: "PRÁCTICAS PRE-PROFESIONALES II", creditos: 14, prerrequisitos: ["EN7091"], ciclo: 10, año: 5 },
   { codigo: "EN7102", nombre: "SEMINARIOS DE INTEGRACIÓN CLÍNICA II", creditos: 1, prerrequisitos: ["EN7092"], ciclo: 10, año: 5 },
   { codigo: "EN7103", nombre: "TRABAJO DE INVESTIGACIÓN", creditos: 3, prerrequisitos: ["EN7093"], ciclo: 10, año: 5 }
-// Datos de cursos
-const cursos = [
-  // Ciclo 1 - Año 1
-  { codigo: "AC4012", nombre: "INGLÉS I", creditos: 3, prerrequisitos: [], ciclo: 1, año: 1 },
-  { codigo: "EN7011", nombre: "PROCESOS BIOLÓGICOS", creditos: 6, prerrequisitos: [], ciclo: 1, año: 1 },
-  { codigo: "EN7012", nombre: "PRÁCTICAS DE ENFERMERÍA", creditos: 5, prerrequisitos: [], ciclo: 1, año: 1 },
-  { codigo: "AC4011", nombre: "DESARROLLO HUMANO Y SOCIAL", creditos: 4, prerrequisitos: [], ciclo: 1, año: 1 },
-  { codigo: "TF5012", nombre: "ESTRUCTURA Y FUNCIÓN DEL CUERPO HUMANO", creditos: 4, prerrequisitos: [], ciclo: 1, año: 1 },
-
-  // Ciclo 2 - Año 1
-  { codigo: "AC4021", nombre: "ESTILO DE VIDA, SALUD Y MEDIO AMBIENTE", creditos: 4, prerrequisitos: [], ciclo: 2, año: 1 },
-  { codigo: "AC4022", nombre: "INGLÉS II", creditos: 2, prerrequisitos: ["AC4012"], ciclo: 2, año: 1 },
-  { codigo: "EN7021", nombre: "SISTEMA MUSCULOESQUELÉTICO", creditos: 3, prerrequisitos: ["TF5012"], ciclo: 2, año: 1 },
-  { codigo: "EN7022", nombre: "SISTEMA NERVIOSO Y ENDOCRINO", creditos: 5, prerrequisitos: ["TF5012"], ciclo: 2, año: 1 },
-  { codigo: "EN7023", nombre: "PRÁCTICAS DE ENFERMERÍA II", creditos: 5, prerrequisitos: ["EN7012"], ciclo: 2, año: 1 },
-  { codigo: "ND4021", nombre: "MECANISMO DE AGRESIÓN Y DEFENSA I", creditos: 4, prerrequisitos: ["EN7011"], ciclo: 2, año: 1 },
-
 ];
 
 const contenedor = document.getElementById("contenedor-cursos");
@@ -149,8 +132,13 @@ function renderCursos() {
     contenedor.appendChild(grupo);
   });
 
-  actualizarProgreso();
   document.body.classList.toggle("oscuro", modoOscuro);
+  actualizarTextoModo();
+  actualizarProgreso();
+}
+
+function actualizarTextoModo() {
+  btnModo.textContent = modoOscuro ? "☀️ Modo Claro" : "🌙 Modo Oscuro";
 }
 
 function toggleCurso(curso) {
@@ -179,5 +167,3 @@ btnVista.addEventListener("click", () => {
   guardarEstado();
   renderCursos();
 });
-
-renderCursos();
