@@ -1,207 +1,202 @@
-:root {
-  --fondo-claro: #fff0f5;
-  --fondo-curso: #ffeef2;
-  --texto: #4a4a4a;
-  --borde: #f3c1d8;
-  --aprobado: #c3e3d6;
-  --desbloqueado: #fce1ec;
-  --bloqueado: #f8d7da;
-  --rosado: #d46a92;
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background-color: var(--fondo-claro);
-  color: var(--texto);
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff0f5;
+  color: #333;
+  padding: 1rem;
+  transition: background-color 0.3s, color 0.3s;
 }
 
+/* Encabezado y botones */
 header {
-  background-color: var(--rosado);
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  border-bottom: 4px solid #b6577a;
-}
-
-h1 {
-  margin: 0;
-  font-size: 2rem;
-}
-
-.controles-superiores {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0.5rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-#modo-oscuro-btn {
-  background-color: white;
-  border: 1px solid var(--rosado);
-  color: var(--rosado);
-  padding: 0.4rem 1rem;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
-main {
-  padding: 1rem;
-}
-
-.año {
-  margin-bottom: 2rem;
-}
-
-.año h2 {
-  text-align: center;
-  color: var(--rosado);
-}
-
-.ciclo {
-  background-color: #ffe4ec;
-  border-radius: 16px;
-  padding: 1rem;
-  margin: 1rem 0;
-  border: 2px solid var(--borde);
-}
-
-.ciclo h3 {
-  margin-top: 0;
-  color: var(--rosado);
-  font-size: 1.2rem;
-  text-align: center;
-}
-
-.cursos {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
   gap: 1rem;
 }
 
-.curso {
-  background-color: var(--fondo-curso);
-  border: 2px solid var(--borde);
-  border-radius: 12px;
-  padding: 0.75rem 1rem;
+header h1 {
+  font-size: 1.8rem;
+  color: #b03060;
+  text-align: center;
+}
+
+.controles {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
+  gap: 0.5rem;
+}
+
+button {
+  background-color: #ffb6c1;
+  color: #4a4a4a;
+  border: none;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ffa6b8;
+}
+
+.creditos {
+  font-weight: bold;
+  color: #800040;
+}
+
+/* Contenedor principal */
+#contenedor-malla {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Secciones por año */
+.anio {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #ffc0cb;
+  border-radius: 16px;
+  padding: 1rem;
+  background-color: #fffafc;
+  min-width: 280px;
+  max-width: 320px;
+  flex: 1 1 300px;
+}
+
+.anio h2 {
+  text-align: center;
+  color: #b03060;
+  margin-bottom: 0.5rem;
+}
+
+/* Secciones por ciclo */
+.ciclo {
+  margin-top: 1rem;
+  border-top: 1px solid #eec0d4;
+  padding-top: 0.5rem;
+}
+
+.ciclo h3 {
+  font-size: 1.1rem;
+  color: #d36c9f;
+  margin-bottom: 0.3rem;
+}
+
+/* Cursos individuales */
+.curso {
+  background-color: #ffe4ec;
+  border: 1px solid #f4a6b3;
+  border-radius: 12px;
+  padding: 0.5rem;
+  margin: 0.3rem 0;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.curso:hover {
+  background-color: #ffd6e0;
 }
 
 .curso.aprobado {
-  background-color: var(--aprobado);
   text-decoration: line-through;
-  opacity: 0.7;
+  opacity: 0.6;
+  background-color: #c7f7d4;
+  border-color: #9de2b5;
 }
 
 .curso.bloqueado {
-  background-color: var(--bloqueado);
-  opacity: 0.5;
-}
-
-.curso.desbloqueado {
-  background-color: var(--desbloqueado);
-}
-
-.btn-aprobar {
-  background-color: var(--rosado);
-  border: none;
-  color: white;
-  padding: 0.4rem 1rem;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.btn-aprobar:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-.selector-electivo {
-  margin-top: 0.5rem;
-  padding: 0.3rem;
-  border-radius: 8px;
-  border: 1px solid var(--borde);
-  font-size: 0.9rem;
-}
-
-.creditos-info {
-  font-weight: bold;
-  font-size: 1rem;
-}
-
-/* Estilo horizontal para escritorio */
-@media (min-width: 768px) {
-  main {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-  }
-
-  .año {
-    flex: 1 1 45%;
-    max-width: 45%;
-  }
-
-  .cursos {
-    flex-direction: column;
-  }
-}
-
-/* Modo Oscuro */
-body.dark-mode {
-  background-color: #2c2c2c;
-  color: #f4f4f4;
-}
-
-body.dark-mode header {
-  background-color: #893656;
-  border-bottom: 4px solid #ad4b6c;
-}
-
-body.dark-mode .ciclo {
-  background-color: #3a2c35;
-  border-color: #5b4254;
-}
-
-body.dark-mode .curso {
-  background-color: #4a3c46;
-  border-color: #6f4e61;
-  color: #f4f4f4;
-}
-
-body.dark-mode .curso.aprobado {
-  background-color: #649c89;
-  color: #e0f2e8;
-  text-decoration: line-through;
-}
-
-body.dark-mode .curso.bloqueado {
-  background-color: #6e4d57;
   opacity: 0.4;
+  pointer-events: none;
 }
 
-body.dark-mode .curso.desbloqueado {
-  background-color: #7e5e6c;
+/* Template interno */
+.nombre-curso {
+  font-weight: bold;
+  display: block;
 }
 
-body.dark-mode .btn-aprobar {
-  background-color: #e6a7c4;
-  color: #2c2c2c;
+.codigo-curso,
+.creditos-curso {
+  font-size: 0.85rem;
+  color: #555;
 }
 
-body.dark-mode .btn-aprobar:disabled {
+/* Modo oscuro */
+body.oscuro {
+  background-color: #1f1f1f;
+  color: #e0e0e0;
+}
+
+body.oscuro .anio {
+  background-color: #2a2a2a;
+  border-color: #444;
+}
+
+body.oscuro .curso {
+  background-color: #3a3a3a;
+  border-color: #666;
+  color: #f0f0f0;
+}
+
+body.oscuro .curso.aprobado {
+  background-color: #335d3f;
+  border-color: #5aa879;
+}
+
+body.oscuro .curso.bloqueado {
+  opacity: 0.3;
+}
+
+body.oscuro button {
+  background-color: #444;
+  color: #f0f0f0;
+}
+
+body.oscuro button:hover {
   background-color: #555;
 }
 
-body.dark-mode .selector-electivo {
-  background-color: #5c4a55;
-  color: #fff;
-  border-color: #a86e91;
+/* Cambiar vista por ciclo (vertical completa) */
+body.vista-ciclos #contenedor-malla {
+  flex-direction: column;
+}
+
+body.vista-ciclos .anio {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Responsive para móvil */
+@media (max-width: 768px) {
+  #contenedor-malla {
+    flex-direction: column;
+  }
+
+  .anio {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .controles {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+    max-width: 200px;
+  }
 }
