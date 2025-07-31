@@ -66,6 +66,15 @@ const cursos = [
     ];
 
 
+const cursos = [
+  { codigo: "AC4012", nombre: "INGLÉS I", creditos: 3, prerrequisitos: [], año: 1, ciclo: 1 },
+  { codigo: "EN7011", nombre: "PROCESOS BIOLÓGICOS", creditos: 6, prerrequisitos: [], año: 1, ciclo: 1 },
+  { codigo: "EN7012", nombre: "PRÁCTICAS DE ENFERMERÍA", creditos: 5, prerrequisitos: [], año: 1, ciclo: 1 },
+  { codigo: "AC4011", nombre: "DESARROLLO HUMANO Y SOCIAL", creditos: 4, prerrequisitos: [], año: 1, ciclo: 1 },
+  { codigo: "TF5012", nombre: "ESTRUCTURA Y FUNCIÓN DEL CUERPO HUMANO", creditos: 4, prerrequisitos: [], año: 1, ciclo: 1 }
+  // ← agrega aquí el resto de los cursos que ya definiste
+];
+
 const contenedor = document.getElementById("contenedor-cursos");
 const creditosSpan = document.getElementById("creditos");
 const barraProgreso = document.getElementById("barraProgreso");
@@ -102,7 +111,7 @@ function renderCursos() {
   const gridContainer = document.createElement("div");
   gridContainer.className = "grid-container";
 
-  Object.entries(grupos).forEach(([titulo, lista]) => {
+  Object.entries(faltantes).forEach(([titulo, lista]) => {
     const columna = document.createElement("div");
     columna.className = "columna";
 
@@ -120,14 +129,8 @@ function renderCursos() {
       else if (faltantes.length > 0) div.classList.add("bloqueado");
       else div.classList.add("desbloqueado");
 
-      div.innerHTML = `
-        <strong>${curso.codigo}</strong><br>${curso.nombre}<br>
-        <small>${curso.creditos} cr</small>
-      `;
-
-      if (faltantes.length > 0) {
-        div.title = `Faltan: ${faltantes.join(", ")}`;
-      }
+      div.innerHTML = `<strong>${curso.codigo}</strong><br>${curso.nombre}<br><small>${curso.creditos} cr</small>`;
+      if (faltantes.length > 0) div.title = `Faltan: ${faltantes.join(", ")}`;
 
       div.addEventListener("click", () => toggleCurso(curso));
       columna.appendChild(div);
@@ -143,11 +146,8 @@ function renderCursos() {
 
 function toggleCurso(curso) {
   if (prerrequisitosFaltantes(curso).length > 0) return;
-  if (cursosAprobados.has(curso.codigo)) {
-    cursosAprobados.delete(curso.codigo);
-  } else {
-    cursosAprobados.add(curso.codigo);
-  }
+  if (cursosAprobados.has(curso.codigo)) cursosAprobados.delete(curso.codigo);
+  else cursosAprobados.add(curso.codigo);
   guardarEstado();
   renderCursos();
 }
@@ -174,5 +174,3 @@ btnVista.addEventListener("click", () => {
 });
 
 renderCursos();
-
-
