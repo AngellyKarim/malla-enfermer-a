@@ -8,18 +8,22 @@
 </head>
 <body>
   <header>
-    <h1>Malla Curricular - Enfermería</h1>
-    <div class="controles">
-      <button id="toggleModo">Modo Oscuro</button>
-      <button id="toggleVista">Ver por Año</button>
-    </div>
+    <h1>Enfermería</h1>
+    <button id="toggleModo">Modo Oscuro 🌙</button>
+    <button id="toggleVista">Ver por Año 📅</button>
     <div id="creditos">Créditos aprobados: 0</div>
-    <div class="barra-container">
+    <div style="background-color: #eee; border-radius: 8px; overflow: hidden; margin: 1rem auto; width: 80%; max-width: 500px;">
       <div id="barraProgreso"></div>
     </div>
   </header>
 
-  <main id="contenedor-cursos"></main>
+  <main class="contenedor" id="contenedor-cursos">
+    <!-- Aquí se generan los cursos dinámicamente -->
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Malla interactiva</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
