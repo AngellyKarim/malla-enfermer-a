@@ -63,7 +63,7 @@ const cursos = [
     prerrequisitos: ["EN7092"], año: 5, ciclo: 10 },
   { codigo: "EN7103", nombre: "TRABAJO DE INVESTIGACIÓN", creditos: 3,
     prerrequisitos: ["EN7093"], año: 5, ciclo: 10 }
-];
+      ];
 
 const contenedor = document.getElementById("contenedor-cursos");
 const creditosSpan = document.getElementById("creditos");
@@ -85,51 +85,68 @@ function contarCreditos() {
   return cursos.filter(c => cursosAprobados.has(c.codigo)).reduce((sum, c) => sum + c.creditos, 0);
 }
 
-function prerrequisitosFaltantes(c) {
-  return c.prerrequisitos.filter(pr => !cursosAprobados.has(pr));
+function prerrequisitosFaltantes(curso) {
+  return curso.prerrequisitos.filter(pr => !cursosAprobados.has(pr));
 }
 
 function renderCursos() {
   contenedor.innerHTML = "";
   const grupos = {};
-  cursos.forEach(c => {
-    const clave = vistaPorCiclo ? `Ciclo ${c.ciclo}` : `Año ${c.año}`;
-    grupos[clave] = grupos[clave] || [];
-    grupos[clave].push(c);
-  });
-  Object.entries(grupos).forEach(([titulo, lista]) => {
-    const divG = document.createElement("div");
-    divG.className = "grupo";
-    const h = document.createElement("h2");
-    h.textContent = titulo;
-    divG.appendChild(h);
-    lista.forEach(c => {
-      const falt = prerrequisitosFaltantes(c);
-      const divC = document.createElement("div");
-      divC.className = "curso";
-      if (cursosAprobados.has(c.codigo)) divC.classList.add("aprobado");
-      else if (falt.length) divC.classList.add("bloqueado");
-      else divC.classList.add("desbloqueado");
-      divC.innerHTML = `<strong>${c.codigo}</strong><br>${c.nombre}<br><small>${c.creditos} cr</small>`;
-      if (falt.length) divC.title = `Faltan: ${falt.join(", ")}`;
-      divC.addEventListener("click", () => toggleCurso(c));
-      divG.appendChild(divC);
-    });
-    contenedor.appendChild(divG);
+  cursos.forEach(curso => {
+    const clave = vistaPorCiclo ? `Ciclo ${curso.ciclo}` : `Año ${curso.año}`;
+    if (!grupos[clave]) grupos[clave] = [];
+    grupos[clave].push(curso);
   });
 
-  creditosSpan.textContent = `Créditos aprobados: ${contarCreditos()}`;
-  const total = cursos.reduce((a,c)=>a+c.creditos,0);
-  barraProgreso.style.width = `${(contarCreditos()/total)*100}%`;
+  const gridContainer = document.createElement("div");
+  gridContainer.className = "grid-container";
+
+  Object.entries(grupos).forEach(([titulo, lista]) => {
+    const columna = document.createElement("div");
+    columna.className = "columna";
+
+    const encabezado = document.createElement("h2");
+    encabezado.textContent = titulo;
+    columna.appendChild(encabezado);
+
+    lista.forEach(curso => {
+      const faltantes = prerrequisitosFaltantes(curso);
+      const div = document.createElement("div");
+      div.className = "curso";
+      div.dataset.codigo = curso.codigo;
+
+      if (cursosAprobados.has(curso.codigo)) div.classList.add("aprobado");
+      else if (faltantes.length > 0) div.classList.add("bloqueado");
+      else div.classList.add("desbloqueado");
+
+      div.innerHTML = `<strong>${curso.codigo}</strong><br>${curso.nombre}<br><small>${curso.creditos} cr</small>`;
+      if (faltantes.length > 0) div.title = `Faltan: ${faltantes.join(", ")}`;
+
+      div.addEventListener("click", () => toggleCurso(curso));
+      columna.appendChild(div);
+    });
+
+    gridContainer.appendChild(columna);
+  });
+
+  contenedor.appendChild(gridContainer);
+  actualizarProgreso();
   document.body.classList.toggle("oscuro", modoOscuro);
 }
 
-function toggleCurso(c) {
-  const falt = prerrequisitosFaltantes(c);
-  if (falt.length) return;
-  cursosAprobados.has(c.codigo) ? cursosAprobados.delete(c.codigo) : cursosAprobados.add(c.codigo);
+function toggleCurso(curso) {
+  if (prerrequisitosFaltantes(curso).length > 0) return;
+  if (cursosAprobados.has(curso.codigo)) cursosAprobados.delete(curso.codigo);
+  else cursosAprobados.add(curso.codigo);
   guardarEstado();
   renderCursos();
+}
+
+function actualizarProgreso() {
+  const total = cursos.reduce((acc, c) => acc + c.creditos, 0);
+  const aprobados = contarCreditos();
+  creditosSpan.textContent = `Créditos aprobados: ${aprobados}`;
+  barraProgreso.style.width = `${(aprobados / total) * 100}%`;
 }
 
 btnModo.addEventListener("click", () => {
@@ -147,4 +164,4 @@ btnVista.addEventListener("click", () => {
 });
 
 renderCursos();
-      
+
