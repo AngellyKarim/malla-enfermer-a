@@ -37,7 +37,7 @@ const cursos = [
   // 6to CICLO - Año 3
   { codigo: "AC4061", nombre: "CIENCIA Y DESCUBRIMIENTO", creditos: 6, prerrequisitos: [], año: 3, ciclo: 6 },
   { codigo: "EN7061", nombre: "GESTIÓN CLÍNICA Y HOSPITALARIA", creditos: 4, prerrequisitos: ["EN7051"], año: 3, ciclo: 6 },
-  { codigo: "EN7062", nombre: "SALUD DEL ADULTO", creditos: 5, prerrequisitos: ["EN7052"], año: 3, ciclo: 6 },
+  { codigo: "EN7062", nombre: "SALUD DEL ADULTO", creditos: 0, prerrequisitos: ["EN7052"], año: 3, ciclo: 6 },
   { codigo: "ELC02", nombre: "ELECTIVO II", creditos: 3, prerrequisitos: [], año: 3, ciclo: 6 },
 
   // 7mo CICLO - Año 4
@@ -60,18 +60,20 @@ const cursos = [
   // 10mo CICLO - Año 5
   { codigo: "EN7101", nombre: "PRÁCTICAS PRE-PROFESIONALES II", creditos: 14, prerrequisitos: ["EN7091"], año: 5, ciclo: 10 },
   { codigo: "EN7102", nombre: "SEMINARIOS DE INTEGRACIÓN CLÍNICA II", creditos: 1, prerrequisitos: ["EN7092"], año: 5, ciclo: 10 },
-  { codigo: "EN7103", nombre: "TRABAJO DE INVESTIGACIÓN", creditos: 3, prerrequisitos: ["EN7093"], año: 5, ciclo: 10 },
+  { codigo: "EN7103", nombre: "TRABAJO DE INVESTIGACIÓN", creditos: 3, prerrequisitos: ["EN7093"], año: 5, ciclo: 10 }
+];
 
-  // Electivos
-  { codigo: "AC4E01", nombre: "EDUCACIÓN, DERECHOS Y AUTONOMÍA DE LAS PERSONAS CON DISCAPACIDAD", creditos: 2, prerrequisitos: [], año: 3, ciclo: 5 },
-  { codigo: "LC5E01", nombre: "SALUD AMBIENTAL Y URBANA", creditos: 3, prerrequisitos: [], año: 3, ciclo: 5 },
-  { codigo: "MH3E01", nombre: "DETERMINANTES SOCIALES DE SALUD Y CONDUCTAS DE SALUD", creditos: 3, prerrequisitos: [], año: 3, ciclo: 5 },
-  { codigo: "MH3E02", nombre: "ANTROPOLOGÍA MÉDICA: CULTURA Y SALUD", creditos: 3, prerrequisitos: [], año: 3, ciclo: 5 },
-  { codigo: "ND4E01", nombre: "LA DIETA OCCIDENTAL", creditos: 3, prerrequisitos: [], año: 3, ciclo: 5 },
-  { codigo: "OD5E01", nombre: "MÉTODOS DE INVESTIGACIÓN PARA PROFESIONALES DE SALUD", creditos: 3, prerrequisitos: [], año: 3, ciclo: 5 },
-  { codigo: "PS4E01", nombre: "MANEJO DEL ESTRÉS PARA EL BIENESTAR", creditos: 3, prerrequisitos: [], año: 3, ciclo: 5 },
-  { codigo: "PS4E02", nombre: "FUNDAMENTOS DEL BIENESTAR", creditos: 3, prerrequisitos: [], año: 3, ciclo: 5 },
-  { codigo: "TF5E01", nombre: "IMPACTO DE LA ACTIVIDAD FÍSICA EN LA SALUD Y EL BIENESTAR", creditos: 3, prerrequisitos: [], año: 3, ciclo: 5 }
+// Lista general de electivos (no asignados aún a ELC01, ELC02 o ELC03)
+const electivosDisponibles = [
+  { codigo: "AC4E01", nombre: "EDUCACIÓN, DERECHOS Y AUTONOMÍA DE LAS PERSONAS CON DISCAPACIDAD", creditos: 2 },
+  { codigo: "LC5E01", nombre: "SALUD AMBIENTAL Y URBANA", creditos: 3 },
+  { codigo: "MH3E01", nombre: "DETERMINANTES SOCIALES DE SALUD Y CONDUCTAS DE SALUD", creditos: 3 },
+  { codigo: "MH3E02", nombre: "ANTROPOLOGÍA MÉDICA: CULTURA Y SALUD", creditos: 3 },
+  { codigo: "ND4E01", nombre: "LA DIETA OCCIDENTAL", creditos: 3 },
+  { codigo: "OD5E01", nombre: "MÉTODOS DE INVESTIGACIÓN PARA PROFESIONALES DE SALUD", creditos: 3 },
+  { codigo: "PS4E01", nombre: "MANEJO DEL ESTRÉS PARA EL BIENESTAR", creditos: 3 },
+  { codigo: "PS4E02", nombre: "FUNDAMENTOS DEL BIENESTAR", creditos: 3 },
+  { codigo: "TF5E01", nombre: "IMPACTO DE LA ACTIVIDAD FÍSICA EN LA SALUD Y EL BIENESTAR", creditos: 3 }
 ];
 const contenedor = document.getElementById("contenedor-cursos");
 const creditosSpan = document.getElementById("creditos");
@@ -99,6 +101,7 @@ function prerrequisitosFaltantes(curso) {
 
 function renderCursos() {
   contenedor.innerHTML = "";
+
   const grupos = {};
   cursos.forEach(curso => {
     const clave = vistaPorCiclo ? `Ciclo ${curso.ciclo}` : `Año ${curso.año}`;
@@ -151,7 +154,11 @@ function toggleCurso(curso) {
 }
 
 function actualizarProgreso() {
-  const total = cursos.reduce((acc, c) => acc + c.creditos, 0);
+  const total = cursos
+    .filter(c => !c.codigo.startsWith("AC4E") && !c.codigo.startsWith("LC5E") && !c.codigo.startsWith("MH3E") &&
+                 !c.codigo.startsWith("ND4E") && !c.codigo.startsWith("OD5E") && !c.codigo.startsWith("PS4E") &&
+                 !c.codigo.startsWith("TF5E"))
+    .reduce((acc, c) => acc + c.creditos, 0);
   const aprobados = contarCreditos();
   creditosSpan.textContent = `Créditos aprobados: ${aprobados} / ${total}`;
   barraProgreso.style.width = `${(aprobados / total) * 100}%`;
@@ -172,5 +179,4 @@ btnVista.addEventListener("click", () => {
 });
 
 renderCursos();
-
-
+  
