@@ -120,8 +120,14 @@ function renderCursos() {
       else if (faltantes.length > 0) div.classList.add("bloqueado");
       else div.classList.add("desbloqueado");
 
-      div.innerHTML = `<strong>${curso.codigo}</strong><br>${curso.nombre}<br><small>${curso.creditos} cr</small>`;
-      if (faltantes.length > 0) div.title = `Faltan: ${faltantes.join(", ")}`;
+      div.innerHTML = `
+        <strong>${curso.codigo}</strong><br>${curso.nombre}<br>
+        <small>${curso.creditos} cr</small>
+      `;
+
+      if (faltantes.length > 0) {
+        div.title = `Faltan: ${faltantes.join(", ")}`;
+      }
 
       div.addEventListener("click", () => toggleCurso(curso));
       columna.appendChild(div);
@@ -133,14 +139,15 @@ function renderCursos() {
   contenedor.appendChild(gridContainer);
   actualizarProgreso();
   document.body.classList.toggle("oscuro", modoOscuro);
-  btnModo.textContent = modoOscuro ? "Modo Claro" : "Modo Oscuro";
-  btnVista.textContent = vistaPorCiclo ? "Ver por Año" : "Ver por Ciclo";
 }
 
 function toggleCurso(curso) {
   if (prerrequisitosFaltantes(curso).length > 0) return;
-  if (cursosAprobados.has(curso.codigo)) cursosAprobados.delete(curso.codigo);
-  else cursosAprobados.add(curso.codigo);
+  if (cursosAprobados.has(curso.codigo)) {
+    cursosAprobados.delete(curso.codigo);
+  } else {
+    cursosAprobados.add(curso.codigo);
+  }
   guardarEstado();
   renderCursos();
 }
@@ -148,7 +155,7 @@ function toggleCurso(curso) {
 function actualizarProgreso() {
   const total = cursos.reduce((acc, c) => acc + c.creditos, 0);
   const aprobados = contarCreditos();
-  creditosSpan.textContent = `Créditos aprobados: ${aprobados}`;
+  creditosSpan.textContent = `Créditos aprobados: ${aprobados} / ${total}`;
   barraProgreso.style.width = `${(aprobados / total) * 100}%`;
 }
 
@@ -156,12 +163,16 @@ btnModo.addEventListener("click", () => {
   modoOscuro = !modoOscuro;
   guardarEstado();
   renderCursos();
+  btnModo.textContent = modoOscuro ? "Modo Claro" : "Modo Oscuro";
 });
 
 btnVista.addEventListener("click", () => {
   vistaPorCiclo = !vistaPorCiclo;
   guardarEstado();
   renderCursos();
+  btnVista.textContent = vistaPorCiclo ? "Ver por Año" : "Ver por Ciclo";
 });
 
 renderCursos();
+
+
