@@ -2,31 +2,47 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Malla Curricular de Enfermería</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Curricular - Enfermería</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
-  <header>Malla Curricular de Enfermería</header>
-
-  <div class="botones">
-    <button onclick="cambiarVista()">Cambiar Vista</button>
-    <button onclick="alternarModoOscuro()">Modo Oscuro</button>
-    <button onclick="resetearProgreso()">Resetear</button>
-  </div>
-
-  <div id="creditos">Créditos aprobados: 0 / <span id="totalCreditos">0</span></div>
-  <div class="progreso-container">
-    <div id="barraProgreso"></div>
-  </div>
-
-  <div class="grid-container" id="malla"></div>
-
-  <div style="text-align:center; margin: 2rem auto; max-width: 600px; padding: 1rem;">
-    <p style="font-size: 0.95rem;">
-      <strong>Nota:</strong> Los cursos electivos no se cuentan directamente en los créditos totales. Debes elegir uno de la lista general para <strong>Electivo I</strong>, <strong>Electivo II</strong> y <strong>Electivo III</strong> cuando llegues a esos ciclos.
+  <header>
+    <h1>Malla Curricular de Enfermería</h1>
+    <p style="text-align:center; font-weight:bold;">
+      Créditos aprobados: <span id="creditos-aprobados">0</span> / <span id="creditos-totales">177</span>
     </p>
-  </div>
+    <div style="text-align:center; margin:1rem;">
+      <button onclick="toggleModoOscuro()">Modo Claro / Oscuro</button>
+      <button onclick="resetearProgreso()">Reiniciar Progreso</button>
+    </div>
+  </header>
+
+  <main class="container" id="malla-container">
+    <!-- Aquí se renderiza dinámicamente la malla por ciclo y año -->
+  </main>
+
+  <section style="padding:1rem;">
+    <h2>Cursos Electivos Disponibles</h2>
+    <p>Los cursos electivos no se cuentan directamente en los créditos totales. Debes elegir uno de la lista general para Electivo I, II y III cuando llegues a esos ciclos.</p>
+
+    <div id="selectores-electivos">
+      <label for="electivo1">Electivo I:</label>
+      <select id="electivo1" class="select-electivo">
+        <option value="">Selecciona un curso</option>
+      </select>
+
+      <label for="electivo2">Electivo II:</label>
+      <select id="electivo2" class="select-electivo">
+        <option value="">Selecciona un curso</option>
+      </select>
+
+      <label for="electivo3">Electivo III:</label>
+      <select id="electivo3" class="select-electivo">
+        <option value="">Selecciona un curso</option>
+      </select>
+    </div>
+  </section>
 
   <script src="script.js"></script>
 </body>
