@@ -83,101 +83,101 @@ const cursos = [
   { codigo: "EN7023", nombre: "PRÁCTICAS DE ENFERMERÍA II", creditos: 5, prerrequisitos: ["EN7012"], ciclo: 2, año: 1 },
   { codigo: "ND4021", nombre: "MECANISMO DE AGRESIÓN Y DEFENSA I", creditos: 4, prerrequisitos: ["EN7011"], ciclo: 2, año: 1 },
 
-  // ... (cursos restantes no se repiten aquí por espacio)
 ];
 
-const estadoCursos = new Set(JSON.parse(localStorage.getItem('estadoCursos') || '[]'));
-const modoVista = localStorage.getItem('modoVista') || 'año';
-const modoOscuro = localStorage.getItem('modoOscuro') === 'true';
+const contenedor = document.getElementById("contenedor-cursos");
+const creditosSpan = document.getElementById("creditos");
+const barraProgreso = document.getElementById("barraProgreso");
+const btnModo = document.getElementById("toggleModo");
+const btnVista = document.getElementById("toggleVista");
+
+let modoOscuro = localStorage.getItem("modoOscuro") === "true";
+let vistaPorCiclo = localStorage.getItem("vistaPorCiclo") === "true";
+let cursosAprobados = new Set(JSON.parse(localStorage.getItem("cursosAprobados") || "[]"));
 
 function guardarEstado() {
-  localStorage.setItem('estadoCursos', JSON.stringify(Array.from(estadoCursos)));
-  localStorage.setItem('modoVista', modoVista);
-  localStorage.setItem('modoOscuro', modoOscuro);
+  localStorage.setItem("modoOscuro", modoOscuro);
+  localStorage.setItem("vistaPorCiclo", vistaPorCiclo);
+  localStorage.setItem("cursosAprobados", JSON.stringify([...cursosAprobados]));
 }
 
-function cursoDesbloqueado(curso) {
-  return curso.prerrequisitos.every(req => estadoCursos.has(req));
+function contarCreditos() {
+  return cursos.filter(c => cursosAprobados.has(c.codigo)).reduce((sum, c) => sum + c.creditos, 0);
 }
 
 function prerrequisitosFaltantes(curso) {
-  return curso.prerrequisitos.filter(req => !estadoCursos.has(req));
+  return curso.prerrequisitos.filter(pr => !cursosAprobados.has(pr));
 }
 
-function contarCreditosAprobados() {
-  return cursos.filter(c => estadoCursos.has(c.codigo)).reduce((suma, c) => suma + c.creditos, 0);
-}
-
-function renderizarCursos() {
-  const contenedor = document.getElementById('contenedor-cursos');
-  contenedor.innerHTML = '';
+function renderCursos() {
+  contenedor.innerHTML = "";
 
   const agrupado = {};
   cursos.forEach(curso => {
-    const clave = modoVista === 'año' ? `Año ${curso.año}` : `Ciclo ${curso.ciclo}`;
+    const clave = vistaPorCiclo ? `Ciclo ${curso.ciclo}` : `Año ${curso.año}`;
     if (!agrupado[clave]) agrupado[clave] = [];
     agrupado[clave].push(curso);
   });
 
-  for (const clave in agrupado) {
-    const columna = document.createElement('div');
-    columna.className = 'columna';
-    const titulo = document.createElement('h3');
-    titulo.textContent = clave;
-    columna.appendChild(titulo);
+  Object.entries(agrupado).forEach(([titulo, cursosGrupo]) => {
+    const grupo = document.createElement("div");
+    grupo.className = "grupo";
 
-    agrupado[clave].forEach(curso => {
-      const btn = document.createElement('button');
-      btn.className = 'curso';
-      btn.textContent = `${curso.nombre} (${curso.creditos} cr)`;
+    const encabezado = document.createElement("h2");
+    encabezado.textContent = titulo;
+    grupo.appendChild(encabezado);
 
-      if (estadoCursos.has(curso.codigo)) {
-        btn.classList.add('aprobado');
-      } else if (!cursoDesbloqueado(curso)) {
-        btn.classList.add('bloqueado');
-        btn.title = 'Prerrequisitos faltantes: ' + prerrequisitosFaltantes(curso).join(', ');
-      }
+    cursosGrupo.forEach(curso => {
+      const faltantes = prerrequisitosFaltantes(curso);
+      const bloqueado = faltantes.length > 0;
 
-      btn.onclick = () => {
-        if (estadoCursos.has(curso.codigo)) {
-          estadoCursos.delete(curso.codigo);
-        } else if (cursoDesbloqueado(curso)) {
-          estadoCursos.add(curso.codigo);
-        }
-        guardarEstado();
-        renderizarCursos();
-        actualizarProgreso();
-      };
+      const div = document.createElement("div");
+      div.className = "curso";
+      div.dataset.codigo = curso.codigo;
 
-      columna.appendChild(btn);
+      if (cursosAprobados.has(curso.codigo)) div.classList.add("aprobado");
+      else if (bloqueado) div.classList.add("bloqueado");
+      else div.classList.add("desbloqueado");
+
+      div.innerHTML = `<strong>${curso.codigo}</strong><br>${curso.nombre}<br><small>${curso.creditos} créditos</small>`;
+      if (bloqueado) div.title = `Faltan: ${faltantes.join(", ")}`;
+
+      div.addEventListener("click", () => toggleCurso(curso));
+      grupo.appendChild(div);
     });
-    contenedor.appendChild(columna);
-  }
+
+    contenedor.appendChild(grupo);
+  });
+
+  actualizarProgreso();
+  document.body.classList.toggle("oscuro", modoOscuro);
+}
+
+function toggleCurso(curso) {
+  if (prerrequisitosFaltantes(curso).length > 0) return;
+  if (cursosAprobados.has(curso.codigo)) cursosAprobados.delete(curso.codigo);
+  else cursosAprobados.add(curso.codigo);
+  guardarEstado();
+  renderCursos();
 }
 
 function actualizarProgreso() {
-  const creditosTotales = cursos.reduce((suma, c) => suma + c.creditos, 0);
-  const creditosAprobados = contarCreditosAprobados();
-  const porcentaje = Math.round((creditosAprobados / creditosTotales) * 100);
-
-  document.getElementById('contador-creditos').textContent = `${creditosAprobados} / ${creditosTotales} créditos aprobados`;
-  document.getElementById('barra-progreso').style.width = `${porcentaje}%`;
-  document.getElementById('porcentaje-progreso').textContent = `${porcentaje}%`;
+  const total = cursos.reduce((acc, c) => acc + c.creditos, 0);
+  const aprobados = contarCreditos();
+  creditosSpan.textContent = `Créditos aprobados: ${aprobados}`;
+  barraProgreso.style.width = `${(aprobados / total) * 100}%`;
 }
 
-function alternarModo() {
-  document.body.classList.toggle('oscuro');
-  localStorage.setItem('modoOscuro', document.body.classList.contains('oscuro'));
-}
+btnModo.addEventListener("click", () => {
+  modoOscuro = !modoOscuro;
+  guardarEstado();
+  renderCursos();
+});
 
-function alternarVista() {
-  localStorage.setItem('modoVista', modoVista === 'año' ? 'ciclo' : 'año');
-  location.reload();
-}
+btnVista.addEventListener("click", () => {
+  vistaPorCiclo = !vistaPorCiclo;
+  guardarEstado();
+  renderCursos();
+});
 
-document.getElementById('btn-modo').onclick = alternarModo;
-document.getElementById('btn-vista').onclick = alternarVista;
-
-if (modoOscuro) document.body.classList.add('oscuro');
-renderizarCursos();
-actualizarProgreso();
+renderCursos();
