@@ -3,31 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Enfermería</title>
+  <title>Malla Curricular de Enfermería</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
   <header>
     <h1>Malla Curricular de Enfermería</h1>
     <div class="controles">
-      <button id="toggleModo">Modo Oscuro</button>
-      <button id="toggleVista">Vista por Ciclo/Año</button>
-      <div class="progreso">
-        <span id="creditos">Créditos aprobados: 0</span>
-        <div class="barra-container">
-          <div id="barraProgreso"></div>
-        </div>
+      <button id="toggleModo">🌙 Modo Oscuro</button>
+      <button id="toggleVista">🔁 Ver por Año / Ciclo</button>
+    </div>
+    <div class="progreso">
+      <span id="creditos">Créditos aprobados: 0</span>
+      <div class="barra">
+        <div id="barraProgreso"></div>
       </div>
     </div>
   </header>
 
-  <main id="contenedor-cursos">
-    <!-- Los cursos se insertan dinámicamente desde script.js -->
-  </main>
-
-  <footer>
-    
-  </footer>
+  <main id="contenedor-cursos"></main>
 
   <script src="script.js"></script>
 </body>
