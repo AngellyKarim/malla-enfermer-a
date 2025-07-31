@@ -61,7 +61,7 @@ const cursos = [
   { codigo: "EN7101", nombre: "PRÁCTICAS PRE-PROFESIONALES II", creditos: 14, prerrequisitos: ["EN7091"], ciclo: 10, anio: 5 },
   { codigo: "EN7102", nombre: "SEMINARIOS DE INTEGRACIÓN CLÍNICA II", creditos: 1, prerrequisitos: ["EN7092"], ciclo: 10, anio: 5 },
   { codigo: "EN7103", nombre: "TRABAJO DE INVESTIGACIÓN", creditos: 3, prerrequisitos: ["EN7093"], ciclo: 10, anio: 5 }
-];
+ ];
 
 const cursosElectivos = [
   { codigo: "AC4E01", nombre: "EDUCACIÓN, DERECHOS Y AUTONOMÍA DE LAS PERSONAS CON DISCAPACIDAD", creditos: 2 },
@@ -70,225 +70,135 @@ const cursosElectivos = [
   { codigo: "MH3E02", nombre: "ANTROPOLOGÍA MÉDICA: CULTURA Y SALUD", creditos: 3 },
   { codigo: "ND4E01", nombre: "LA DIETA OCCIDENTAL", creditos: 3 },
   { codigo: "OD5E01", nombre: "MÉTODOS DE INVESTIGACIÓN PARA PROFESIONALES DE SALUD", creditos: 3 },
-  { codigo: "PS4E01", nombre: "MANEJO DEL ESTRÉS PARA EL BIENESTAR", creditos: 3 },
+  { codigo: "PS4E01", nombre: "MANEJO DEL ÉSTRES PARA EL BIENESTAR", creditos: 3 },
   { codigo: "PS4E02", nombre: "FUNDAMENTOS DEL BIENESTAR", creditos: 3 },
   { codigo: "TF5E01", nombre: "IMPACTO DE LA ACTIVIDAD FÍSICA EN LA SALUD Y EL BIENESTAR", creditos: 3 }
 ];
-const totalCreditos = cursos.reduce((sum, curso) => sum + (curso.codigo.startsWith('ELC') ? 0 : curso.creditos), 0);
-document.getElementById("creditos-totales").textContent = totalCreditos;
 
-const cursosAprobados = new Set(JSON.parse(localStorage.getItem("cursosAprobados")) || []);
-const electivosSeleccionados = JSON.parse(localStorage.getItem("electivosSeleccionados")) || {};
+let cursosAprobados = JSON.parse(localStorage.getItem("cursosAprobados")) || {};
+let modoOscuro = localStorage.getItem("modoOscuro") === "true";
 
-function guardarProgreso() {
-  localStorage.setItem("cursosAprobados", JSON.stringify([...cursosAprobados]));
-  localStorage.setItem("electivosSeleccionados", JSON.stringify(electivosSeleccionados));
+const contenedorMalla = document.getElementById("contenedor-malla");
+const creditosAprobadosSpan = document.getElementById("creditos-aprobados");
+const creditosTotalesSpan = document.getElementById("creditos-totales");
+const btnModoOscuro = document.getElementById("modo-oscuro-btn");
+
+function calcularCreditosTotales() {
+  return cursos
+    .filter(curso => !curso.codigo.startsWith("ELC"))
+    .reduce((sum, curso) => sum + curso.creditos, 0) + 3 * 3; // 3 electivos x 3 créditos
 }
 
 function calcularCreditosAprobados() {
-  return cursos.reduce((sum, curso) => {
-    if (cursosAprobados.has(curso.codigo) && !curso.codigo.startsWith("ELC")) {
-      return sum + curso.creditos;
-    }
-    return sum;
-  }, 0);
+  return Object.entries(cursosAprobados)
+    .filter(([_, aprobado]) => aprobado)
+    .map(([codigo]) => {
+      let curso = cursos.find(c => c.codigo === codigo);
+      if (!curso && codigo.startsWith("ELC")) {
+        const electivoSeleccionado = cursosAprobados[codigo];
+        curso = cursosElectivos.find(e => e.codigo === electivoSeleccionado);
+      }
+      return curso ? curso.creditos : 0;
+    })
+    .reduce((sum, cred) => sum + cred, 0);
 }
 
 function actualizarCreditos() {
-  document.getElementById("creditos-aprobados").textContent = calcularCreditosAprobados();
+  creditosAprobadosSpan.textContent = calcularCreditosAprobados();
+  creditosTotalesSpan.textContent = calcularCreditosTotales();
 }
 
-function prerrequisitosAprobados(prerrequisitos) {
-  return prerrequisitos.every(pr => cursosAprobados.has(pr));
+function tienePrerrequisitosAprobados(curso) {
+  return curso.prerrequisitos.every(prereq => cursosAprobados[prereq]);
 }
 
-function crearCursoElemento(curso) {
-  const template = curso.codigo.startsWith("ELC")
-    ? document.getElementById("electivo-template")
-    : document.getElementById("curso-template");
-  const cursoEl = template.content.cloneNode(true);
-  const nombre = cursoEl.querySelector(".nombre-curso");
-  const codigo = cursoEl.querySelector(".codigo-curso");
-  const creditos = cursoEl.querySelector(".creditos-curso");
-  const btn = cursoEl.querySelector(".btn-aprobar");
-  const select = cursoEl.querySelector(".selector-electivo");
-
-  if (curso.codigo.startsWith("ELC")) {
-    select.name = curso.codigo;
-    cursosElectivos.forEach(elec => {
-      const opt = document.createElement("option");
-      opt.value = elec.codigo;
-      opt.textContent = `${elec.nombre} (${elec.creditos} créditos)`;
-      select.appendChild(opt);
-    });
-    select.value = electivosSeleccionados[curso.codigo] || "";
-    select.addEventListener("change", () => {
-      electivosSeleccionados[curso.codigo] = select.value;
-      guardarProgreso();
-    });
-  } else {
-    nombre.textContent = curso.nombre;
-    codigo.textContent = curso.codigo;
-    creditos.textContent = `${curso.creditos} créditos`;
-    if (cursosAprobados.has(curso.codigo)) {
-      btn.disabled = true;
-      btn.textContent = "Aprobado";
-      cursoEl.querySelector(".curso").classList.add("aprobado");
-    }
-    btn.addEventListener("click", () => {
-      cursosAprobados.add(curso.codigo);
-      guardarProgreso();
-      renderizarMalla();
-    });
-  }
-
-  return cursoEl;
-}
 function renderizarMalla() {
-  const contenedor = document.getElementById('contenedor-malla');
-  contenedor.innerHTML = '';
-
-  const cursosPorCiclo = {};
-
+  contenedorMalla.innerHTML = "";
+  const cursosPorAnioYCiclo = {};
   cursos.forEach(curso => {
-    if (!cursosPorCiclo[curso.ciclo]) {
-      cursosPorCiclo[curso.ciclo] = [];
-    }
-    cursosPorCiclo[curso.ciclo].push(curso);
+    const key = `A${curso.anio}-C${curso.ciclo}`;
+    if (!cursosPorAnioYCiclo[key]) cursosPorAnioYCiclo[key] = [];
+    cursosPorAnioYCiclo[key].push(curso);
   });
 
-  for (let ciclo = 1; ciclo <= 10; ciclo++) {
-    const contenedorCiclo = document.createElement('div');
-    contenedorCiclo.classList.add('ciclo');
-    contenedorCiclo.innerHTML = `<h2>Ciclo ${ciclo}</h2>`;
+  for (let anio = 1; anio <= 5; anio++) {
+    const contenedorAnio = document.createElement("section");
+    contenedorAnio.className = "anio";
+    const tituloAnio = document.createElement("h2");
+    tituloAnio.textContent = `Año ${anio}`;
+    contenedorAnio.appendChild(tituloAnio);
 
-    if (cursosPorCiclo[ciclo]) {
-      cursosPorCiclo[ciclo].forEach(curso => {
-        if (curso.codigo.startsWith('ELC')) {
-          const template = document.getElementById('electivo-template');
-          const cursoElement = template.content.cloneNode(true);
-          const select = cursoElement.querySelector('select');
-          electivos.forEach(e => {
-            const option = document.createElement('option');
+    for (let ciclo = 1; ciclo <= 2; ciclo++) {
+      const key = `A${anio}-C${(anio - 1) * 2 + ciclo}`;
+      const cursosCiclo = cursosPorAnioYCiclo[key] || [];
+      const contenedorCiclo = document.createElement("div");
+      contenedorCiclo.className = "ciclo";
+      const tituloCiclo = document.createElement("h3");
+      tituloCiclo.textContent = `Ciclo ${(anio - 1) * 2 + ciclo}`;
+      contenedorCiclo.appendChild(tituloCiclo);
+
+      cursosCiclo.forEach(curso => {
+        if (curso.codigo.startsWith("ELC")) {
+          const template = document.getElementById("electivo-template");
+          const nodo = template.content.cloneNode(true);
+          const select = nodo.querySelector("select");
+          cursosElectivos.forEach(e => {
+            const option = document.createElement("option");
             option.value = e.codigo;
-            option.textContent = `${e.nombre} (${e.codigo})`;
+            option.textContent = `${e.codigo} - ${e.nombre}`;
             select.appendChild(option);
           });
-          select.dataset.codigo = curso.codigo;
-          select.addEventListener('change', (e) => {
-            const elegido = e.target.value;
-            if (elegido) {
-              estadoElectivos[curso.codigo] = elegido;
-              guardarProgreso();
+          select.value = cursosAprobados[curso.codigo] || "";
+          select.addEventListener("change", () => {
+            if (select.value) {
+              cursosAprobados[curso.codigo] = select.value;
+              localStorage.setItem("cursosAprobados", JSON.stringify(cursosAprobados));
+              actualizarCreditos();
               renderizarMalla();
             }
           });
-          if (estadoElectivos[curso.codigo]) {
-            select.value = estadoElectivos[curso.codigo];
-            const elegidoCurso = electivos.find(e => e.codigo === select.value);
-            if (elegidoCurso) {
-              const info = cursoElement.querySelector('.nombre-curso');
-              info.textContent = elegidoCurso.nombre;
-              select.style.display = 'none';
-            }
-          }
-          contenedorCiclo.appendChild(cursoElement);
+          contenedorCiclo.appendChild(nodo);
         } else {
-          const template = document.getElementById('curso-template');
-          const cursoElement = template.content.cloneNode(true);
-          const nombre = cursoElement.querySelector('.nombre-curso');
-          const codigo = cursoElement.querySelector('.codigo-curso');
-          const creditos = cursoElement.querySelector('.creditos-curso');
-          const boton = cursoElement.querySelector('.btn-aprobar');
+          const template = document.getElementById("curso-template");
+          const nodo = template.content.cloneNode(true);
+          nodo.querySelector(".nombre-curso").textContent = curso.nombre;
+          nodo.querySelector(".codigo-curso").textContent = curso.codigo;
+          nodo.querySelector(".creditos-curso").textContent = `${curso.creditos} créditos`;
 
-          nombre.textContent = curso.nombre;
-          codigo.textContent = curso.codigo;
-          creditos.textContent = `${curso.creditos} créditos`;
-
-          if (cursosAprobados.has(curso.codigo)) {
-            cursoElement.querySelector('.curso').classList.add('aprobado');
-            boton.textContent = 'Aprobado';
+          const boton = nodo.querySelector(".btn-aprobar");
+          if (cursosAprobados[curso.codigo]) {
+            boton.textContent = "Aprobado";
+            boton.disabled = true;
+            nodo.querySelector(".curso").classList.add("aprobado");
+          } else if (!tienePrerrequisitosAprobados(curso)) {
+            boton.textContent = "Bloqueado";
             boton.disabled = true;
           } else {
-            const prerrequisitosCompletos = curso.prerrequisitos.every(req => cursosAprobados.has(req));
-            if (!prerrequisitosCompletos) {
-              boton.disabled = true;
-              boton.textContent = 'Bloqueado';
-            } else {
-              boton.addEventListener('click', () => {
-                cursosAprobados.add(curso.codigo);
-                guardarProgreso();
-                renderizarMalla();
-              });
-            }
+            boton.addEventListener("click", () => {
+              cursosAprobados[curso.codigo] = true;
+              localStorage.setItem("cursosAprobados", JSON.stringify(cursosAprobados));
+              actualizarCreditos();
+              renderizarMalla();
+            });
           }
-
-          contenedorCiclo.appendChild(cursoElement);
+          contenedorCiclo.appendChild(nodo);
         }
       });
+      contenedorAnio.appendChild(contenedorCiclo);
     }
-
-    contenedor.appendChild(contenedorCiclo);
-  }
-
-  actualizarCreditos();
-  actualizarModo();
-}
-function guardarProgreso() {
-  localStorage.setItem('cursosAprobados', JSON.stringify(Array.from(cursosAprobados)));
-  localStorage.setItem('estadoElectivos', JSON.stringify(estadoElectivos));
-}
-
-function cargarProgreso() {
-  const guardado = localStorage.getItem('cursosAprobados');
-  if (guardado) {
-    cursosAprobados = new Set(JSON.parse(guardado));
-  }
-  const electivosGuardados = localStorage.getItem('estadoElectivos');
-  if (electivosGuardados) {
-    Object.assign(estadoElectivos, JSON.parse(electivosGuardados));
+    contenedorMalla.appendChild(contenedorAnio);
   }
 }
 
-function actualizarCreditos() {
-  let total = 0;
-  cursos.forEach(curso => {
-    if (cursosAprobados.has(curso.codigo)) {
-      total += curso.creditos;
-    }
-  });
-  Object.entries(estadoElectivos).forEach(([codigo, elegido]) => {
-    const curso = electivos.find(e => e.codigo === elegido);
-    if (curso) total += curso.creditos;
-  });
-  document.getElementById('contador-creditos').textContent = `Créditos aprobados: ${total}`;
-}
-
-function actualizarModo() {
-  const body = document.body;
-  const boton = document.getElementById('btn-modo');
-  const modoOscuro = localStorage.getItem('modoOscuro') === 'true';
-  body.classList.toggle('oscuro', modoOscuro);
-  boton.textContent = modoOscuro ? 'Modo claro' : 'Modo oscuro';
-}
-
-document.getElementById('btn-modo').addEventListener('click', () => {
-  const body = document.body;
-  body.classList.toggle('oscuro');
-  const nuevoModo = body.classList.contains('oscuro');
-  localStorage.setItem('modoOscuro', nuevoModo);
-  actualizarModo();
+btnModoOscuro.addEventListener("click", () => {
+  modoOscuro = !modoOscuro;
+  localStorage.setItem("modoOscuro", modoOscuro);
+  document.body.classList.toggle("oscuro", modoOscuro);
+  btnModoOscuro.textContent = modoOscuro ? "☀️ Modo Claro" : "🌙 Modo Oscuro";
 });
 
-document.getElementById('btn-reiniciar').addEventListener('click', () => {
-  if (confirm('¿Seguro que deseas reiniciar tu progreso?')) {
-    cursosAprobados.clear();
-    Object.keys(estadoElectivos).forEach(k => delete estadoElectivos[k]);
-    localStorage.removeItem('cursosAprobados');
-    localStorage.removeItem('estadoElectivos');
-    renderizarMalla();
-  }
-});
+document.body.classList.toggle("oscuro", modoOscuro);
+btnModoOscuro.textContent = modoOscuro ? "☀️ Modo Claro" : "🌙 Modo Oscuro";
 
-cargarProgreso();
+actualizarCreditos();
 renderizarMalla();
