@@ -2,97 +2,80 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f0eb;
+  background-color: #f4f1ee;
   margin: 0;
-  padding: 20px;
-  color: #3e3e3e;
+  padding: 0;
+  color: #333;
+}
+
+header {
+  background-color: #b2a6a0;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
 }
 
 h1 {
-  text-align: center;
-  color: #6b5b95;
-  margin-bottom: 20px;
+  margin: 0;
 }
 
-.barra-superior {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto 20px auto;
-  padding: 10px;
-  background-color: #ece2d0;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+main {
+  padding: 1rem;
 }
 
-.barra-superior input {
-  flex: 1;
-  padding: 8px 12px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  margin-right: 20px;
-}
-
-#progreso {
-  font-weight: bold;
-  color: #6b5b95;
-}
-
-.malla-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
+.anio {
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #c2b9b4;
+  padding-bottom: 1rem;
 }
 
 .ciclo {
-  background-color: #e6d3c7;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-}
-
-.ciclo h2 {
-  color: #484349;
-  font-size: 18px;
-  margin-bottom: 10px;
-  text-align: center;
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .curso {
-  background-color: #c3b1e1;
-  border: 1px solid #9a8c98;
+  background-color: #e3dcd5;
+  border: 1px solid #b0a8a0;
   border-radius: 8px;
-  padding: 8px;
-  margin-bottom: 10px;
-  transition: background-color 0.3s;
+  padding: 1rem;
+  width: 200px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
 }
 
-.curso.aprobado {
-  background-color: #b5ead7;
-  border-color: #59c3c3;
+.curso:hover {
+  transform: scale(1.03);
 }
 
-.curso button {
-  margin-top: 5px;
-  padding: 4px 8px;
-  font-size: 12px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  background-color: #d5c6e0;
-  color: #3e3e3e;
-  transition: background-color 0.2s;
-}
-
-.curso button:hover {
-  background-color: #c5aed8;
-}
-
-.curso.locked {
+.curso.bloqueado {
+  background-color: #d6cfc9;
   opacity: 0.5;
   pointer-events: none;
+}
+
+.curso.desbloqueado {
+  opacity: 1;
+}
+
+button {
+  background-color: #8d8079;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #a0948d;
+}
+
+#progreso {
+  margin-top: 0.5rem;
+  font-weight: bold;
 }
