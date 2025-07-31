@@ -3,47 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Malla Curricular - Enfermería</title>
+  <title>Malla Curricular de Enfermería</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
   <header>
     <h1>Malla Curricular de Enfermería</h1>
-    <p style="text-align:center; font-weight:bold;">
-      Créditos aprobados: <span id="creditos-aprobados">0</span> / <span id="creditos-totales">177</span>
-    </p>
-    <div style="text-align:center; margin:1rem;">
-      <button onclick="toggleModoOscuro()">Modo Claro / Oscuro</button>
-      <button onclick="resetearProgreso()">Reiniciar Progreso</button>
+    <div class="controles-superiores">
+      <div class="creditos-info">
+        Créditos aprobados: <span id="creditos-aprobados">0</span> / <span id="creditos-totales">0</span>
+      </div>
+      <button id="modo-oscuro-btn">🌙 Modo Oscuro</button>
     </div>
   </header>
 
-  <main class="container" id="malla-container">
-    <!-- Aquí se renderiza dinámicamente la malla por ciclo y año -->
-  </main>
+  <main id="contenedor-malla"></main>
 
-  <section style="padding:1rem;">
-    <h2>Cursos Electivos Disponibles</h2>
-    <p>Los cursos electivos no se cuentan directamente en los créditos totales. Debes elegir uno de la lista general para Electivo I, II y III cuando llegues a esos ciclos.</p>
-
-    <div id="selectores-electivos">
-      <label for="electivo1">Electivo I:</label>
-      <select id="electivo1" class="select-electivo">
-        <option value="">Selecciona un curso</option>
-      </select>
-
-      <label for="electivo2">Electivo II:</label>
-      <select id="electivo2" class="select-electivo">
-        <option value="">Selecciona un curso</option>
-      </select>
-
-      <label for="electivo3">Electivo III:</label>
-      <select id="electivo3" class="select-electivo">
-        <option value="">Selecciona un curso</option>
-      </select>
+  <!-- Template para cursos normales -->
+  <template id="curso-template">
+    <div class="curso">
+      <div class="curso-info">
+        <h3 class="nombre-curso"></h3>
+        <p class="codigo-curso"></p>
+        <p class="creditos-curso"></p>
+      </div>
+      <button class="btn-aprobar">Aprobar</button>
     </div>
-  </section>
+  </template>
 
-  <script src="script.js"></script>
+  <!-- Template para cursos electivos con selector -->
+  <template id="electivo-template">
+    <div class="curso">
+      <div class="curso-info">
+        <h3 class="nombre-curso">Electivo</h3>
+        <select class="selector-electivo">
+          <option value="">Selecciona un curso electivo</option>
+        </select>
+      </div>
+    </div>
+  </template>
+
+  <!-- IMPORTANTE: Script se carga al final para que DOM esté listo -->
+  <script src="script.js" defer></script>
 </body>
 </html>
