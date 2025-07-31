@@ -1,157 +1,177 @@
 :root {
-  --pastel-pink: #ffe0e9;
-  --pastel-blue: #dbeafe;
-  --pastel-green: #dcfce7;
-  --pastel-purple: #ede9fe;
-  --text-dark: #2d2d2d;
-  --text-light: #ffffff;
-  --fondo-claro: #fffafc;
-  --fondo-oscuro: #1e1e1e;
-  --curso-borde: #ccc;
-  --bloqueado: #fca5a5;
-  --desbloqueado: #c7d2fe;
-  --aprobado: #86efac;
+  --pastel-blue: #a3c4f3;
+  --pastel-pink: #f5c6ec;
+  --pastel-purple: #d4c1ec;
+  --pastel-green: #b6e2d3;
+  --pastel-gray: #eaeaea;
+  --text-color: #333;
+  --approved-color: #b0b0b0;
+  --unlocked-color: #6b7280;
+  --locked-color: #d1d5db;
+  --background: #fff;
+  --card-bg: #fff;
+  --credit-box: #f0f0f0;
 }
 
-/* Reset y base */
+body.dark {
+  --pastel-blue: #8eaee0;
+  --pastel-pink: #e1aed6;
+  --pastel-purple: #bfa9d7;
+  --pastel-green: #9ccfc0;
+  --pastel-gray: #2c2c2c;
+  --text-color: #f0f0f0;
+  --approved-color: #888;
+  --unlocked-color: #b0b9c2;
+  --locked-color: #555;
+  --background: #1e1e1e;
+  --card-bg: #2b2b2b;
+  --credit-box: #333;
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: var(--fondo-claro);
-  color: var(--text-dark);
-  transition: background-color 0.3s, color 0.3s;
+  background: var(--background);
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s;
 }
 
-body.oscuro {
-  background-color: var(--fondo-oscuro);
-  color: var(--text-light);
-}
-
-/* Encabezado y botones */
 header {
-  padding: 1rem;
-  background-color: var(--pastel-pink);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
   text-align: center;
+  background-color: var(--pastel-purple);
+  padding: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--text-color);
 }
 
-.botones {
+#controls {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
   flex-wrap: wrap;
+  padding: 1rem;
+  background: var(--credit-box);
+}
+
+#creditCounter {
+  font-weight: bold;
 }
 
 button {
-  background-color: var(--pastel-purple);
-  color: var(--text-dark);
-  border: none;
   padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 10px;
   font-size: 1rem;
-  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-button:hover {
   background-color: var(--pastel-blue);
+  color: var(--text-color);
 }
 
-/* Contenedor general */
-#contenedor-cursos {
-  padding: 1rem;
+#container {
   overflow-x: auto;
+  padding: 1rem;
 }
 
-/* Vista por columnas (años o ciclos) */
-.grid-container {
-  display: flex;
-  flex-wrap: nowrap;
+.grid {
+  display: grid;
   gap: 1rem;
-  overflow-x: auto;
 }
 
-/* Cada columna representa un Año o Ciclo */
-.columna {
-  background-color: var(--pastel-purple);
-  border-radius: 10px;
+.year-column {
+  background: var(--pastel-gray);
+  border-radius: 15px;
   padding: 1rem;
-  min-width: 200px;
-  flex: 0 0 auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 250px;
 }
 
-.columna h2 {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-/* Estilo de curso */
-.curso {
-  background-color: var(--pastel-blue);
-  border: 1px solid var(--curso-borde);
-  border-radius: 8px;
-  padding: 0.5rem;
+.cycle-title {
+  font-size: 1.1rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: transform 0.2s, background-color 0.3s;
 }
 
-.curso:hover {
-  transform: scale(1.03);
+.cycle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.curso.aprobado {
-  background-color: var(--aprobado);
-  color: var(--text-dark);
-}
-
-.curso.bloqueado {
-  background-color: var(--bloqueado);
-  color: #333;
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.curso.desbloqueado {
-  background-color: var(--desbloqueado);
-  color: #333;
-}
-
-/* Barra de progreso */
-.progreso {
-  margin: 1rem auto;
-  max-width: 600px;
-  height: 20px;
-  background-color: #e5e7eb;
+.course {
+  background: var(--card-bg);
+  padding: 0.6rem;
+  border-left: 6px solid var(--pastel-blue);
   border-radius: 10px;
-  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.3s, opacity 0.3s;
 }
 
-#barraProgreso {
-  height: 100%;
-  background-color: #60a5fa;
-  width: 0%;
-  transition: width 0.5s;
+.course[data-status="locked"] {
+  opacity: 0.5;
+  border-color: var(--locked-color);
 }
 
-/* Responsive: en móvil las columnas se apilan */
-@media (max-width: 768px) {
-  .grid-container {
-    flex-direction: column;
-    align-items: stretch;
+.course[data-status="unlocked"] {
+  border-color: var(--unlocked-color);
+}
+
+.course[data-status="approved"] {
+  text-decoration: line-through;
+  color: var(--approved-color);
+  border-color: var(--approved-color);
+  opacity: 0.7;
+}
+
+.course-title {
+  font-weight: 600;
+}
+
+.course-code {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.course-credits {
+  font-size: 0.85rem;
+  color: var(--text-color);
+}
+
+.elective-note {
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: 1rem;
+  color: var(--text-color);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
   }
 
-  .columna {
+  .year-column {
+    flex: 1;
+  }
+
+  .cycle {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .year-column {
     width: 100%;
+  }
+
+  .cycle {
+    flex-direction: column;
   }
 }
