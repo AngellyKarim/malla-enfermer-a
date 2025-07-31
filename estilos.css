@@ -1,97 +1,116 @@
+:root {
+  --color-fondo: #fff8f0;
+  --color-texto: #333;
+  --color-aprobado: #c2f0c2;
+  --color-bloqueado: #f8d0d8;
+  --color-desbloqueado: #d0e8f2;
+  --color-barra: #a5d6a7;
+  --color-titulo: #f9c5d1;
+  --color-boton: #ffd6e0;
+}
+
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #fce4ec; /* rosa pastel */
   margin: 0;
-  padding: 0;
-  color: #333;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
   transition: background-color 0.3s, color 0.3s;
 }
 
-h1 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin: 1rem;
-  color: #333;
+body.oscuro {
+  --color-fondo: #1e1e1e;
+  --color-texto: #f0f0f0;
+  --color-aprobado: #4caf50;
+  --color-bloqueado: #8b0000;
+  --color-desbloqueado: #1976d2;
+  --color-barra: #66bb6a;
+  --color-titulo: #333;
+  --color-boton: #444;
 }
 
-.botones {
+header {
+  background-color: var(--color-titulo);
+  padding: 1rem;
+  text-align: center;
+  color: #333;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.controls {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 1rem;
   margin: 1rem;
-  flex-wrap: wrap;
 }
 
-.botones button {
+button {
+  background-color: var(--color-boton);
+  color: #333;
   padding: 0.5rem 1rem;
-  background-color: #d1c4e9; /* lavanda pastel */
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
+  border-radius: 8px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.botones button:hover {
-  background-color: #b39ddb;
+button:hover {
+  background-color: #ffc0cb;
 }
 
 .progreso {
-  width: 90%;
-  max-width: 600px;
-  margin: 1rem auto;
-  background-color: #e0e0e0;
+  margin: 1rem;
+  height: 1.25rem;
+  background-color: #eee;
   border-radius: 10px;
   overflow: hidden;
-  height: 20px;
 }
 
-.progreso-barra {
+#barraProgreso {
   height: 100%;
-  background-color: #a5d6a7;
-  transition: width 0.4s;
-}
-
-#creditos {
-  text-align: center;
-  margin-top: 0.5rem;
-  font-weight: bold;
+  width: 0;
+  background-color: var(--color-barra);
+  transition: width 0.3s;
 }
 
 .grid-container {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  gap: 1rem;
   overflow-x: auto;
   padding: 1rem;
-  gap: 1rem;
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: start;
 }
 
 .columna {
-  min-width: 220px;
-  background-color: #fff3e0; /* durazno pastel */
-  border-radius: 10px;
+  background-color: #fff;
+  border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  flex-shrink: 0;
+  min-width: 200px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .columna h2 {
   text-align: center;
-  color: #6a1b9a;
-  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  background-color: var(--color-desbloqueado);
+  border-radius: 8px;
+  padding: 0.5rem;
 }
 
 .curso {
-  background-color: #f8bbd0; /* rosa pastel */
-  border: 2px solid #f48fb1;
-  border-radius: 8px;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
+  margin: 0.5rem 0;
+  padding: 0.6rem;
+  border-radius: 10px;
+  background-color: var(--color-desbloqueado);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
+  text-align: center;
+  font-size: 0.9rem;
+  transition: transform 0.2s, background-color 0.3s;
 }
 
 .curso:hover {
@@ -99,66 +118,43 @@ h1 {
 }
 
 .curso.aprobado {
-  background-color: #cce5d0;
-  border: 2px solid #a6d2b5;
-  color: #444;
+  background-color: var(--color-aprobado);
   text-decoration: line-through;
+  opacity: 0.7;
 }
 
 .curso.bloqueado {
-  background-color: #eee;
-  border: 2px dashed #aaa;
-  color: #aaa;
+  background-color: var(--color-bloqueado);
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
-.curso.desbloqueado {
-  background-color: #fff9c4; /* amarillo pastel */
-  border: 2px solid #fbc02d;
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #888;
 }
 
-.oscuro {
-  background-color: #2e2e2e;
-  color: #f0f0f0;
-}
-
-.oscuro .columna {
-  background-color: #424242;
-}
-
-.oscuro .curso {
-  background-color: #616161;
-  border-color: #757575;
-  color: #f0f0f0;
-}
-
-.oscuro .curso.aprobado {
-  background-color: #4caf50;
-  color: #fff;
-  text-decoration: line-through;
-}
-
-.oscuro .curso.bloqueado {
-  background-color: #333;
-  color: #999;
-  border-color: #555;
-}
-
-.oscuro .curso.desbloqueado {
-  background-color: #fdd835;
-  color: #000;
-  border-color: #ffeb3b;
-}
-
+/* Vista móvil */
 @media (max-width: 768px) {
   .grid-container {
     flex-direction: column;
-    overflow-x: visible;
     align-items: center;
+    overflow-x: hidden;
   }
 
   .columna {
     width: 90%;
     max-width: 400px;
   }
+
+  header {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
 }
+
