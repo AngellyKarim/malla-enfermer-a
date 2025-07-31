@@ -3,39 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Enfermería</title>
+  <title>Malla Curricular de Enfermería</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
-  <header>
-    <h1>Malla Curricular de Enfermería</h1>
-    <div class="botones">
-      <button id="toggleModo">Modo Oscuro</button>
-      <button id="toggleVista">Ver por Ciclo</button>
-    </div>
-    <div class="progreso">
-      <span id="creditos">Créditos aprobados: 0 / 0</span>
-      <div class="barra-contenedor"><div id="barraProgreso"></div></div>
-    </div>
-  </header>
+  <header>Malla Curricular de Enfermería</header>
 
-  <main id="contenedor-cursos"></main>
+  <div class="botones">
+    <button onclick="cambiarVista()">Cambiar Vista</button>
+    <button onclick="alternarModoOscuro()">Modo Oscuro</button>
+    <button onclick="resetearProgreso()">Resetear</button>
+  </div>
 
-  <section class="nota">
-    <h2>Cursos Electivos</h2>
-    <p>Los cursos electivos no se cuentan directamente en los créditos totales. Debes elegir uno de la lista general para <strong>Electivo I</strong>, <strong>Electivo II</strong> y <strong>Electivo III</strong> cuando llegues a esos ciclos.</p>
-    <ul>
-      <li>AC4E01 - EDUCACIÓN, DERECHOS Y AUTONOMÍA DE LAS PERSONAS CON DISCAPACIDAD (2 cr)</li>
-      <li>LC5E01 - SALUD AMBIENTAL Y URBANA (3 cr)</li>
-      <li>MH3E01 - DETERMINANTES SOCIALES DE SALUD Y CONDUCTAS DE SALUD (3 cr)</li>
-      <li>MH3E02 - ANTROPOLOGÍA MÉDICA: CULTURA Y SALUD (3 cr)</li>
-      <li>ND4E01 - LA DIETA OCCIDENTAL (3 cr)</li>
-      <li>OD5E01 - MÉTODOS DE INVESTIGACIÓN PARA PROFESIONALES DE SALUD (3 cr)</li>
-      <li>PS4E01 - MANEJO DEL ESTRÉS PARA EL BIENESTAR (3 cr)</li>
-      <li>PS4E02 - FUNDAMENTOS DEL BIENESTAR (3 cr)</li>
-      <li>TF5E01 - IMPACTO DE LA ACTIVIDAD FÍSICA EN LA SALUD Y EL BIENESTAR (3 cr)</li>
-    </ul>
-  </section>
+  <div id="creditos">Créditos aprobados: 0 / <span id="totalCreditos">0</span></div>
+  <div class="progreso-container">
+    <div id="barraProgreso"></div>
+  </div>
+
+  <div class="grid-container" id="malla"></div>
+
+  <div style="text-align:center; margin: 2rem auto; max-width: 600px; padding: 1rem;">
+    <p style="font-size: 0.95rem;">
+      <strong>Nota:</strong> Los cursos electivos no se cuentan directamente en los créditos totales. Debes elegir uno de la lista general para <strong>Electivo I</strong>, <strong>Electivo II</strong> y <strong>Electivo III</strong> cuando llegues a esos ciclos.
+    </p>
+  </div>
 
   <script src="script.js"></script>
 </body>
