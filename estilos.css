@@ -1,158 +1,186 @@
 /* Reset básico */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
 }
 
+/* Fuente y cuerpo */
 body {
-  background-color: #ffeef5;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff7fa;
   color: #333;
   transition: background-color 0.3s, color 0.3s;
-}
-
-body.dark-mode {
-  background-color: #2a2a2a;
-  color: #f8f8f8;
-}
-
-/* Contenedor general */
-.container {
-  padding: 2rem;
-  max-width: 1400px;
-  margin: auto;
-}
-
-/* Créditos */
-.creditos {
-  font-weight: bold;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-}
-
-/* Año y Ciclo */
-.anio,
-.ciclo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1rem;
-  background-color: #ffe5ec;
-  border: 2px solid #f8c3d0;
-  border-radius: 16px;
   padding: 1rem;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.08);
-  min-width: 200px;
-  transition: background-color 0.3s, border 0.3s;
 }
 
-body.dark-mode .anio,
-body.dark-mode .ciclo {
-  background-color: #3c3c3c;
-  border-color: #777;
+/* Modo oscuro */
+body.oscuro {
+  background-color: #2e2e2e;
+  color: #eee;
 }
 
-/* Título de año y ciclo */
-.anio h2,
-.ciclo h3 {
-  margin-bottom: 0.5rem;
-  color: #cc5178;
+body.oscuro .curso {
+  background-color: #444;
+  color: #eee;
+  border-color: #666;
 }
 
-body.dark-mode .anio h2,
-body.dark-mode .ciclo h3 {
-  color: #f4b6d7;
-}
-
-/* Cursos */
-.curso {
-  background-color: #fce6ec;
-  border-left: 6px solid #f8b7ca;
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
-  margin: 0.5rem 0;
-  cursor: pointer;
-  transition: background-color 0.3s, opacity 0.3s;
-}
-
-body.dark-mode .curso {
-  background-color: #50414e;
-  border-left-color: #d382a4;
-  color: #f0f0f0;
-}
-
-.curso.aprobado {
-  opacity: 0.6;
+body.oscuro .curso.aprobado {
+  background-color: #335c4d;
   text-decoration: line-through;
 }
 
-.curso.bloqueado {
-  opacity: 0.4;
-  pointer-events: none;
+body.oscuro .curso.desbloqueado:hover {
+  background-color: #577e6d;
 }
 
-/* Electivos */
-.electivos-nota {
-  font-style: italic;
-  font-size: 0.95rem;
-  margin-bottom: 1.5rem;
-  color: #888;
+body.oscuro header,
+body.oscuro .nota {
+  background-color: #3a3a3a;
+}
+
+/* Encabezado */
+header {
   text-align: center;
+  margin-bottom: 1rem;
+  background-color: #ffe3ec;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-body.dark-mode .electivos-nota {
-  color: #bbb;
+/* Botones */
+.botones {
+  margin-top: 1rem;
 }
 
-/* Layout de los años */
-.malla {
+.botones button {
+  background-color: #e5b9c9;
+  border: none;
+  padding: 0.6rem 1rem;
+  margin: 0.2rem;
+  border-radius: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.botones button:hover {
+  background-color: #dca9bb;
+}
+
+body.oscuro .botones button {
+  background-color: #666;
+}
+
+body.oscuro .botones button:hover {
+  background-color: #888;
+}
+
+/* Progreso */
+.progreso {
+  margin-top: 1rem;
+}
+
+.barra-contenedor {
+  width: 100%;
+  background-color: #f8dbe5;
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+#barraProgreso {
+  height: 100%;
+  background-color: #c97e9b;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* Cursos */
+.grid-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
   gap: 1rem;
 }
 
-.anio .ciclo {
-  width: 100%;
+.columna {
+  flex: 0 0 auto;
+  min-width: 220px;
+  padding: 0.5rem;
+  background-color: #fdebf0;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* Botón de modo oscuro */
-.toggle-tema {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  background-color: #f8c3d0;
-  border: none;
-  padding: 0.6rem 1.2rem;
-  border-radius: 12px;
+.columna h2 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: #cc5c84;
+}
+
+.curso {
+  background-color: #fff;
+  border: 2px solid #f4c3d5;
+  padding: 0.5rem;
+  margin: 0.4rem 0;
+  border-radius: 0.8rem;
   cursor: pointer;
-  font-weight: bold;
-  color: #333;
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
 }
 
-body.dark-mode .toggle-tema {
-  background-color: #875c76;
-  color: #f8f8f8;
+.curso:hover {
+  background-color: #fce1ea;
+  transform: scale(1.02);
 }
 
-/* Responsive para vista móvil */
+.curso.aprobado {
+  background-color: #d2f4da;
+  border-color: #90d5aa;
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+.curso.bloqueado {
+  background-color: #f0f0f0;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.curso.desbloqueado {
+  background-color: #fff;
+}
+
+/* Sección de nota sobre electivos */
+.nota {
+  background-color: #fff0f5;
+  border: 2px solid #f4c3d5;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.nota h2 {
+  margin-bottom: 0.5rem;
+  color: #cc5c84;
+}
+
+.nota ul {
+  padding-left: 1.2rem;
+  list-style: disc;
+}
+
+/* Vista móvil */
 @media screen and (max-width: 768px) {
-  .malla {
+  .grid-container {
     flex-direction: column;
-    gap: 2rem;
   }
 
-  .anio {
-    width: 100%;
-  }
-
-  .anio h2 {
-    font-size: 1.3rem;
-  }
-
-  .ciclo h3 {
-    font-size: 1.1rem;
+  .columna {
+    min-width: 100%;
   }
 }
