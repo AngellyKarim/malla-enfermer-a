@@ -2,26 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Malla Curricular - Enfermería</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Curricular de Enfermería</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
   <header>
-    <h1>Malla Curricular de Enfermería</h1>
-    <div class="botones">
-      <button id="toggleModo">Modo Oscuro</button>
-      <button id="toggleVista">Ver por Ciclo</button>
-    </div>
-    <div class="progreso-container">
-      <span id="creditos">Créditos aprobados: 0 / 0</span>
-      <div class="barra-progreso-bg">
-        <div class="barra-progreso" id="barraProgreso"></div>
-      </div>
-    </div>
+    Malla Curricular de Enfermería
   </header>
 
-  <main id="contenedor-cursos"></main>
+  <div id="controls">
+    <div id="creditCounter">Créditos Aprobados: 0</div>
+    <div>
+      <button onclick="resetProgress()">Reiniciar Progreso</button>
+      <button onclick="toggleDarkMode()">Modo Claro/Oscuro</button>
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="grid" id="courseGrid">
+      <!-- Contenido generado por JavaScript -->
+    </div>
+
+    <div class="elective-note">
+      * Los cursos electivos no se cuentan directamente en los créditos totales. Debes elegir uno de la lista general para Electivo I, II y III cuando llegues a esos ciclos.
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
