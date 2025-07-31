@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Malla Curricular - Enfermería</title>
-  <link rel="stylesheet" href="estilos.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Curricular de Enfermería</title>
+  <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-  <h1>Malla Curricular - Enfermería</h1>
+  <header>
+    <h1>Malla Curricular de Enfermería</h1>
+    <p id="progreso">Progreso: 0/0 créditos (0%)</p>
+  </header>
 
-  <div class="barra-superior">
-    <input type="text" id="busqueda" placeholder="Buscar curso por nombre o código..." />
-    <div id="progreso">Créditos aprobados: 0 / 250</div>
-  </div>
-
-  <div class="malla-container" id="malla-container"></div>
+  <main>
+    <div id="malla"></div>
+  </main>
 
   <script src="script.js"></script>
 </body>
