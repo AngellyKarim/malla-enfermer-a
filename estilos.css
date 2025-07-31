@@ -2,101 +2,97 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f1ee;
-  color: #3e3b3b;
+  background-color: #f5f0eb;
   margin: 0;
   padding: 20px;
+  color: #3e3e3e;
 }
 
 h1 {
   text-align: center;
-  color: #6f5f63;
-  font-size: 28px;
+  color: #6b5b95;
   margin-bottom: 20px;
 }
 
-#malla {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+.barra-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto 20px auto;
   padding: 10px;
+  background-color: #ece2d0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.barra-superior input {
+  flex: 1;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-right: 20px;
+}
+
+#progreso {
+  font-weight: bold;
+  color: #6b5b95;
+}
+
+.malla-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.ciclo {
+  background-color: #e6d3c7;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+.ciclo h2 {
+  color: #484349;
+  font-size: 18px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .curso {
-  background-color: #d7ccc8;
-  border: 2px solid #b39b9b;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
-  position: relative;
-  opacity: 1;
-}
-
-.curso h3 {
-  margin: 0 0 10px 0;
-  font-size: 16px;
-  color: #4e3b3b;
-}
-
-.curso .codigo {
-  font-weight: bold;
-  color: #7e6b74;
-  font-size: 14px;
-  margin-bottom: 5px;
-  display: block;
-}
-
-.curso .creditos {
-  font-size: 13px;
-  color: #5f5a5a;
-}
-
-.curso button {
-  margin-top: 10px;
-  padding: 6px 12px;
-  background-color: #958f8a;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 14px;
+  background-color: #c3b1e1;
+  border: 1px solid #9a8c98;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 10px;
   transition: background-color 0.3s;
 }
 
-.curso button:hover:not(:disabled) {
-  background-color: #7a7070;
-}
-
-.curso button:disabled {
-  background-color: #c0b7b1;
-  cursor: not-allowed;
-}
-
 .curso.aprobado {
-  background-color: #cfd8dc;
-  border-color: #90a4ae;
-  opacity: 1;
+  background-color: #b5ead7;
+  border-color: #59c3c3;
 }
 
-.curso.bloqueado {
-  opacity: 0.4;
+.curso button {
+  margin-top: 5px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #d5c6e0;
+  color: #3e3e3e;
+  transition: background-color 0.2s;
+}
+
+.curso button:hover {
+  background-color: #c5aed8;
+}
+
+.curso.locked {
+  opacity: 0.5;
   pointer-events: none;
-}
-
-.curso:hover {
-  transform: scale(1.02);
-  background-color: #e8e0da;
-}
-
-@media (max-width: 768px) {
-  #malla {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-}
-
-@media (max-width: 480px) {
-  #malla {
-    grid-template-columns: 1fr;
-  }
 }
