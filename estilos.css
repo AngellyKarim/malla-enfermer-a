@@ -1,141 +1,135 @@
-/* Colores base pastel aesthetic */
-:root {
-  --fondo: #fffafc;
-  --principal: #f6dbe8;
-  --secundario: #e2eafc;
-  --texto: #4a4a4a;
-  --aprobado: #c4f0c5;
-  --bloqueado: #f8c9c9;
-  --desbloqueado: #d7ecfa;
-  --oscuro-fondo: #2e2e2e;
-  --oscuro-texto: #f0f0f0;
-  --progreso: #f9a8d4;
-}
-
-/* Reset básico */
 body {
-  margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: var(--fondo);
-  color: var(--texto);
-  transition: all 0.3s ease;
+  background-color: #fdf6f0;
+  color: #333;
+  margin: 0;
+  padding: 1rem;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 header {
-  text-align: center;
-  padding: 1rem;
-  background: var(--principal);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-header h1 {
-  margin: 0;
+h1 {
   font-size: 2rem;
+  color: #d17b88;
 }
 
 button {
-  margin: 0.5rem;
-  padding: 0.4rem 1rem;
-  background-color: var(--secundario);
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 1rem;
+  background-color: #d17b88;
+  color: white;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
   transition: background-color 0.3s;
 }
-
 button:hover {
-  background-color: #d0dff9;
+  background-color: #b96674;
 }
 
-.contenedor {
-  padding: 2rem;
-  display: grid;
-  gap: 2rem;
-  justify-content: center;
+.grid-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  flex-wrap: nowrap;
 }
 
-/* Grupo de ciclo o año */
-.grupo {
-  background-color: #fff;
-  border: 2px dashed var(--secundario);
-  border-radius: 20px;
+.columna {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #ffeaea;
   padding: 1rem;
-  width: 300px;
+  border-radius: 12px;
+  min-width: 200px;
+  flex: 0 0 auto;
 }
 
-.grupo h2 {
+.columna h2 {
   text-align: center;
-  color: #a44593;
-  margin-bottom: 1rem;
-}
-
-/* Estilo de cada curso */
-.curso {
-  background-color: var(--desbloqueado);
-  border-radius: 1rem;
-  padding: 0.8rem;
   margin-bottom: 0.5rem;
-  cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  transition: transform 0.2s;
-  text-align: center;
+  font-size: 1.2rem;
+  color: #9b4c5b;
 }
 
+.curso {
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 2px solid #ffcdd2;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
 .curso:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
 }
 
 .curso.aprobado {
-  background-color: var(--aprobado);
   text-decoration: line-through;
-  opacity: 0.7;
+  background-color: #c8e6c9;
+  border-color: #81c784;
 }
-
 .curso.bloqueado {
-  background-color: var(--bloqueado);
+  background-color: #eeeeee;
+  color: #999;
+  border-color: #ccc;
   cursor: not-allowed;
-  opacity: 0.6;
+}
+.curso.desbloqueado {
+  background-color: #fff;
 }
 
-/* Progreso */
-#barraProgreso {
+footer {
+  margin-top: 1rem;
+}
+
+.progreso {
   height: 10px;
-  background-color: var(--progreso);
+  background-color: #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+#barraProgreso {
+  height: 100%;
+  background-color: #81c784;
   width: 0%;
-  transition: width 0.4s ease;
-  border-radius: 10px;
+  transition: width 0.5s ease-in-out;
 }
 
 /* Modo oscuro */
 body.oscuro {
-  background-color: var(--oscuro-fondo);
-  color: var(--oscuro-texto);
+  background-color: #1e1e1e;
+  color: #eee;
 }
-
-body.oscuro header {
-  background: #444;
+body.oscuro .columna {
+  background-color: #2c2c2c;
 }
-
-body.oscuro button {
-  background-color: #666;
-  color: #fff;
-}
-
-body.oscuro .grupo {
-  background-color: #3a3a3a;
-  border-color: #777;
-}
-
 body.oscuro .curso {
-  background-color: #4d4d4d;
-  color: #f0f0f0;
+  background-color: #3c3c3c;
+  border-color: #555;
 }
-
 body.oscuro .curso.aprobado {
-  background-color: #3f664f;
+  background-color: #4caf50;
+  border-color: #81c784;
+}
+body.oscuro .curso.bloqueado {
+  background-color: #555;
+  color: #aaa;
 }
 
-body.oscuro .curso.bloqueado {
-  background-color: #7a4a4a;
+/* Vista móvil */
+@media (max-width: 768px) {
+  .grid-container {
+    flex-direction: column;
+    overflow-x: visible;
+  }
 }
