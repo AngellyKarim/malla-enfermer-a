@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Malla Curricular Enfermería</title>
+  <title>Malla Curricular – Enfermería</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
@@ -11,15 +11,17 @@
     <h1>Malla Curricular – Enfermería</h1>
     <div class="controles">
       <button id="modo-oscuro-btn">🌙 Modo Oscuro</button>
+      <button id="cambiar-vista-btn">🔄 Cambiar Vista</button>
       <div class="creditos">
         Créditos aprobados: <span id="creditos-aprobados">0</span> / <span id="creditos-totales">0</span>
       </div>
     </div>
   </header>
 
-  <main id="contenedor-malla"></main>
+  <main>
+    <div id="contenedor-malla"></div>
+  </main>
 
-  <!-- Plantilla para cada curso -->
   <template id="curso-template">
     <div class="curso">
       <strong class="nombre-curso"></strong>
