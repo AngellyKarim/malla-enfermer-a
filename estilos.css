@@ -2,21 +2,22 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f1ee;
+  background-color: #fefaf6;
   margin: 0;
   padding: 0;
   color: #333;
 }
 
 header {
-  background-color: #b2a6a0;
-  color: #fff;
+  background-color: #f7d9d9;
+  color: #4a4a4a;
   padding: 1rem;
   text-align: center;
 }
 
 h1 {
   margin: 0;
+  font-weight: normal;
 }
 
 main {
@@ -25,34 +26,43 @@ main {
 
 .anio {
   margin-bottom: 2rem;
-  border-bottom: 2px solid #c2b9b4;
-  padding-bottom: 1rem;
+  border-left: 4px solid #ffcccc;
+  padding-left: 1rem;
+  display: block;
+}
+
+.anio h2 {
+  margin-top: 0;
+  color: #b07272;
 }
 
 .ciclo {
-  margin-top: 1rem;
+  margin: 1rem 0;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  flex-direction: row;
 }
 
 .curso {
-  background-color: #e3dcd5;
-  border: 1px solid #b0a8a0;
-  border-radius: 8px;
+  background-color: #ffe4e1;
+  border: 1px solid #ffc1cc;
+  border-radius: 10px;
   padding: 1rem;
   width: 200px;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  font-size: 0.95rem;
 }
 
 .curso:hover {
-  transform: scale(1.03);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 .curso.bloqueado {
-  background-color: #d6cfc9;
-  opacity: 0.5;
+  background-color: #f3e6e6;
+  opacity: 0.4;
   pointer-events: none;
 }
 
@@ -61,21 +71,24 @@ main {
 }
 
 button {
-  background-color: #8d8079;
-  color: white;
+  background-color: #cbaacb;
+  color: #fff;
   border: none;
   padding: 0.5rem 1rem;
   margin-top: 0.5rem;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 0.9rem;
 }
 
 button:hover {
-  background-color: #a0948d;
+  background-color: #b07bac;
 }
 
 #progreso {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   font-weight: bold;
+  font-size: 1rem;
+  color: #5a4b4b;
 }
