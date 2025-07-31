@@ -1,132 +1,160 @@
-/* estilos.css */
+/* Paleta pastel aesthetic - tonos suaves */
+:root {
+  --pastel-lila: #dcd6f7;
+  --pastel-rosa: #f8d7da;
+  --pastel-verde: #d0f4de;
+  --pastel-azul: #cce2f0;
+  --pastel-amarillo: #fff5ba;
+  --gris-suave: #f2f2f2;
+  --gris-texto: #555;
+  --bg-oscuro: #2c2c2c;
+  --texto-claro: #f9f9f9;
+}
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f8f5f2;
-  color: #333;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--gris-suave);
+  color: var(--gris-texto);
   margin: 0;
   padding: 0;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 body.modo-oscuro {
-  background-color: #1e1e1e;
-  color: #f5f5f5;
+  background-color: var(--bg-oscuro);
+  color: var(--texto-claro);
 }
 
-h2 {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  margin: 20px;
-  background-color: #eacfcf;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 20px;
+header {
+  padding: 1rem;
+  background-color: var(--pastel-azul);
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-h3 {
-  margin-top: 0;
-  background-color: #d4e3dc;
-  padding: 5px 10px;
-  border-radius: 8px;
+header h1 {
+  margin: 0.5rem 0;
 }
 
-#contenedor-malla {
+.controles {
+  margin: 1rem;
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: flex-start;
-  gap: 30px;
-  overflow-x: auto;
-  padding: 20px;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.controles button {
+  padding: 0.5rem 1rem;
+  background-color: var(--pastel-rosa);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.controles button:hover {
+  background-color: var(--pastel-lila);
+}
+
+.progreso {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.barra-progreso {
+  width: 80%;
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 10px;
+  margin: 0.5rem auto;
+  overflow: hidden;
+}
+
+#barraProgresoInterna {
+  height: 100%;
+  width: 0%;
+  background-color: var(--pastel-verde);
+  transition: width 0.5s;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.año {
+  border-left: 6px solid var(--pastel-amarillo);
+  padding-left: 1rem;
+}
+
+.año h2 {
+  color: #444;
+  background-color: var(--pastel-azul);
+  padding: 0.5rem;
+  border-radius: 8px;
+  display: inline-block;
 }
 
 .ciclo {
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  background-color: #f0eef1;
-  padding: 10px;
-  border-radius: 12px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  min-width: 220px;
+  gap: 1rem;
 }
 
 .curso {
-  padding: 10px;
-  border-radius: 8px;
-  background-color: #f7f0e8;
-  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1rem;
+  background-color: var(--pastel-lila);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.3s;
+  transition: background-color 0.3s, opacity 0.3s;
+  position: relative;
 }
 
 .curso:hover {
-  transform: scale(1.03);
+  background-color: var(--pastel-rosa);
+}
+
+.curso.bloqueado {
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .curso.aprobado {
   text-decoration: line-through;
-  background-color: #d6eadf;
-  border-color: #b6dfc2;
+  background-color: var(--pastel-verde);
 }
 
-.curso.bloqueado {
-  background-color: #f0d6d6;
-  color: #888;
-  border-color: #e0b4b4;
-  cursor: not-allowed;
-}
-
-.curso.desbloqueado:not(.aprobado):hover {
-  background-color: #e5f4f1;
-}
-
-#contador-creditos {
-  margin: 20px;
-  font-size: 18px;
+.curso .codigo {
   font-weight: bold;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.curso .creditos {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 0.5rem;
+}
+
+.prerrequisitos {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .curso {
+    width: 100%;
+  }
+}
+
+.toggle-container {
   text-align: center;
-}
-
-#toggle-modo {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #ddd;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-#toggle-modo:hover {
-  background-color: #bbb;
-}
-
-body.modo-oscuro #toggle-modo {
-  background-color: #444;
-  color: #f5f5f5;
-}
-
-body.modo-oscuro .curso {
-  background-color: #333;
-  border-color: #555;
-  color: #eee;
-}
-
-body.modo-oscuro .curso.aprobado {
-  background-color: #2d4f2d;
-  border-color: #396b39;
-}
-
-body.modo-oscuro .curso.bloqueado {
-  background-color: #4d2d2d;
-  color: #aaa;
-  border-color: #6b3939;
-}
-
-body.modo-oscuro .curso.desbloqueado:hover {
-  background-color: #444d44;
+  margin: 1rem;
 }
