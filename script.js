@@ -75,108 +75,97 @@ const electivosDisponibles = [
   { codigo: "PS4E02", nombre: "FUNDAMENTOS DEL BIENESTAR", creditos: 3 },
   { codigo: "TF5E01", nombre: "IMPACTO DE LA ACTIVIDAD FÍSICA EN LA SALUD Y EL BIENESTAR", creditos: 3 }
 ];
-const contenedor = document.getElementById("contenedor-cursos");
-const creditosSpan = document.getElementById("creditos");
-const barraProgreso = document.getElementById("barraProgreso");
-const btnModo = document.getElementById("toggleModo");
-const btnVista = document.getElementById("toggleVista");
-
-let modoOscuro = localStorage.getItem("modoOscuro") === "true";
-let vistaPorCiclo = localStorage.getItem("vistaPorCiclo") === "true";
-let cursosAprobados = new Set(JSON.parse(localStorage.getItem("cursosAprobados") || "[]"));
+let cursosAprobados = JSON.parse(localStorage.getItem("cursosAprobados")) || [];
 
 function guardarEstado() {
-  localStorage.setItem("modoOscuro", modoOscuro);
-  localStorage.setItem("vistaPorCiclo", vistaPorCiclo);
-  localStorage.setItem("cursosAprobados", JSON.stringify([...cursosAprobados]));
+  localStorage.setItem("cursosAprobados", JSON.stringify(cursosAprobados));
 }
 
-function contarCreditos() {
-  return cursos.filter(c => cursosAprobados.has(c.codigo)).reduce((sum, c) => sum + c.creditos, 0);
-}
-
-function prerrequisitosFaltantes(curso) {
-  return curso.prerrequisitos.filter(pr => !cursosAprobados.has(pr));
-}
-
-function renderCursos() {
-  contenedor.innerHTML = "";
-
-  const grupos = {};
-  cursos.forEach(curso => {
-    const clave = vistaPorCiclo ? `Ciclo ${curso.ciclo}` : `Año ${curso.año}`;
-    if (!grupos[clave]) grupos[clave] = [];
-    grupos[clave].push(curso);
-  });
-
-  const gridContainer = document.createElement("div");
-  gridContainer.className = "grid-container";
-
-  Object.entries(grupos).forEach(([titulo, lista]) => {
-    const columna = document.createElement("div");
-    columna.className = "columna";
-
-    const encabezado = document.createElement("h2");
-    encabezado.textContent = titulo;
-    columna.appendChild(encabezado);
-
-    lista.forEach(curso => {
-      const faltantes = prerrequisitosFaltantes(curso);
-      const div = document.createElement("div");
-      div.className = "curso";
-      div.dataset.codigo = curso.codigo;
-
-      if (cursosAprobados.has(curso.codigo)) div.classList.add("aprobado");
-      else if (faltantes.length > 0) div.classList.add("bloqueado");
-      else div.classList.add("desbloqueado");
-
-      div.innerHTML = `<strong>${curso.codigo}</strong><br>${curso.nombre}<br><small>${curso.creditos} cr</small>`;
-      if (faltantes.length > 0) div.title = `Faltan: ${faltantes.join(", ")}`;
-
-      div.addEventListener("click", () => toggleCurso(curso));
-      columna.appendChild(div);
-    });
-
-    gridContainer.appendChild(columna);
-  });
-
-  contenedor.appendChild(gridContainer);
-  actualizarProgreso();
-  document.body.classList.toggle("oscuro", modoOscuro);
-}
-
-function toggleCurso(curso) {
-  if (prerrequisitosFaltantes(curso).length > 0) return;
-  if (cursosAprobados.has(curso.codigo)) cursosAprobados.delete(curso.codigo);
-  else cursosAprobados.add(curso.codigo);
-  guardarEstado();
-  renderCursos();
+function estaDesbloqueado(curso) {
+  return curso.prerrequisitos.every(pr => cursosAprobados.includes(pr));
 }
 
 function actualizarProgreso() {
-  const total = cursos
-    .filter(c => !c.codigo.startsWith("AC4E") && !c.codigo.startsWith("LC5E") && !c.codigo.startsWith("MH3E") &&
-                 !c.codigo.startsWith("ND4E") && !c.codigo.startsWith("OD5E") && !c.codigo.startsWith("PS4E") &&
-                 !c.codigo.startsWith("TF5E"))
+  const totalCreditos = cursos.filter(c => !c.codigo.includes("E0")).reduce((acc, c) => acc + c.creditos, 0);
+  const creditosAprobados = cursos
+    .filter(c => cursosAprobados.includes(c.codigo))
     .reduce((acc, c) => acc + c.creditos, 0);
-  const aprobados = contarCreditos();
-  creditosSpan.textContent = `Créditos aprobados: ${aprobados} / ${total}`;
-  barraProgreso.style.width = `${(aprobados / total) * 100}%`;
+
+  const porcentaje = Math.floor((creditosAprobados / totalCreditos) * 100);
+  document.getElementById("barraProgreso").style.width = `${porcentaje}%`;
+  document.getElementById("creditosAprobados").textContent = creditosAprobados;
+  document.getElementById("creditosTotales").textContent = totalCreditos;
 }
 
-btnModo.addEventListener("click", () => {
-  modoOscuro = !modoOscuro;
-  guardarEstado();
-  renderCursos();
-  btnModo.textContent = modoOscuro ? "Modo Claro" : "Modo Oscuro";
-});
+function renderizarMalla() {
+  const contenedor = document.getElementById("contenedorMalla");
+  contenedor.innerHTML = "";
 
-btnVista.addEventListener("click", () => {
-  vistaPorCiclo = !vistaPorCiclo;
-  guardarEstado();
-  renderCursos();
-  btnVista.textContent = vistaPorCiclo ? "Ver por Año" : "Ver por Ciclo";
-});
+  for (let año = 1; año <= 5; año++) {
+    const columna = document.createElement("div");
+    columna.classList.add("columna");
 
-renderCursos();
-  
+    const titulo = document.createElement("h2");
+    titulo.textContent = `Año ${año}`;
+    columna.appendChild(titulo);
+
+    for (let ciclo = (año - 1) * 2 + 1; ciclo <= año * 2; ciclo++) {
+      const cursosDelCiclo = cursos.filter(c => c.ciclo === ciclo);
+      cursosDelCiclo.forEach(curso => {
+        const div = document.createElement("div");
+        div.classList.add("curso");
+        div.textContent = `${curso.codigo} - ${curso.nombre} (${curso.creditos} cr)`;
+        div.dataset.codigo = curso.codigo;
+
+        if (cursosAprobados.includes(curso.codigo)) {
+          div.classList.add("aprobado");
+        } else if (estaDesbloqueado(curso)) {
+          div.classList.add("desbloqueado");
+        } else {
+          div.classList.add("bloqueado");
+        }
+
+        div.addEventListener("click", () => {
+          if (!estaDesbloqueado(curso)) return;
+          if (cursosAprobados.includes(curso.codigo)) {
+            cursosAprobados = cursosAprobados.filter(c => c !== curso.codigo);
+          } else {
+            cursosAprobados.push(curso.codigo);
+          }
+          guardarEstado();
+          renderizarMalla();
+          actualizarProgreso();
+        });
+
+        columna.appendChild(div);
+      });
+    }
+
+    contenedor.appendChild(columna);
+  }
+}
+
+function limpiarProgreso() {
+  if (confirm("¿Seguro que deseas borrar tu progreso?")) {
+    cursosAprobados = [];
+    guardarEstado();
+    renderizarMalla();
+    actualizarProgreso();
+  }
+}
+
+function toggleModoOscuro() {
+  document.body.classList.toggle("oscuro");
+  localStorage.setItem("modoOscuro", document.body.classList.contains("oscuro"));
+}
+
+document.getElementById("btnLimpiar").addEventListener("click", limpiarProgreso);
+document.getElementById("btnModoOscuro").addEventListener("click", toggleModoOscuro);
+
+if (localStorage.getItem("modoOscuro") === "true") {
+  document.body.classList.add("oscuro");
+}
+
+renderizarMalla();
+actualizarProgreso();
+
