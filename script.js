@@ -126,16 +126,4 @@ function actualizarProgreso() {
   document.getElementById('progreso').textContent = `Progreso: ${creditosAprobados}/${totalCreditos} créditos (${porcentaje}%)`;
 }
 
-function filtrarCursos() {
-  const filtro = document.getElementById('filtro').value.toLowerCase();
-  const cursosDivs = document.querySelectorAll('.curso');
-  cursosDivs.forEach(div => {
-    const texto = div.textContent.toLowerCase();
-    div.style.display = texto.includes(filtro) ? '' : 'none';
-  });
-}
-
-document.getElementById('filtro').addEventListener('input', filtrarCursos);
-
 document.addEventListener('DOMContentLoaded', renderizarMalla);
-                                  
