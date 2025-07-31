@@ -77,16 +77,17 @@ const cursosElectivos = [
 
 let cursosAprobados = JSON.parse(localStorage.getItem("cursosAprobados")) || {};
 let modoOscuro = localStorage.getItem("modoOscuro") === "true";
+let vistaCiclos = localStorage.getItem("vistaCiclos") === "true";
 
 const contenedorMalla = document.getElementById("contenedor-malla");
 const creditosAprobadosSpan = document.getElementById("creditos-aprobados");
 const creditosTotalesSpan = document.getElementById("creditos-totales");
 const btnModoOscuro = document.getElementById("modo-oscuro-btn");
+const btnVista = document.getElementById("vista-btn");
 
 function calcularCreditosTotales() {
-  return cursos
-    .filter(curso => !curso.codigo.startsWith("ELC"))
-    .reduce((sum, curso) => sum + curso.creditos, 0) + 3 * 3;
+  return cursos.filter(curso => !curso.codigo.startsWith("ELC"))
+               .reduce((sum, curso) => sum + curso.creditos, 0) + 3 * 3;
 }
 
 function calcularCreditosAprobados() {
@@ -154,7 +155,11 @@ function renderizarMalla() {
 
         cursoDiv.addEventListener("click", () => {
           if (!tienePrerrequisitosAprobados(curso)) return;
-          cursosAprobados[curso.codigo] = true;
+          if (cursosAprobados[curso.codigo]) {
+            delete cursosAprobados[curso.codigo];
+          } else {
+            cursosAprobados[curso.codigo] = true;
+          }
           localStorage.setItem("cursosAprobados", JSON.stringify(cursosAprobados));
           actualizarCreditos();
           renderizarMalla();
@@ -162,8 +167,10 @@ function renderizarMalla() {
 
         contenedorCiclo.appendChild(nodo);
       });
+
       contenedorAnio.appendChild(contenedorCiclo);
     }
+
     contenedorMalla.appendChild(contenedorAnio);
   }
 }
@@ -177,6 +184,16 @@ btnModoOscuro.addEventListener("click", () => {
 
 document.body.classList.toggle("oscuro", modoOscuro);
 btnModoOscuro.textContent = modoOscuro ? "☀️ Modo Claro" : "🌙 Modo Oscuro";
+
+btnVista.addEventListener("click", () => {
+  vistaCiclos = !vistaCiclos;
+  localStorage.setItem("vistaCiclos", vistaCiclos);
+  document.body.classList.toggle("vista-ciclos", vistaCiclos);
+  btnVista.textContent = vistaCiclos ? "🔁 Vista por Años" : "🔁 Vista por Ciclos";
+});
+
+document.body.classList.toggle("vista-ciclos", vistaCiclos);
+btnVista.textContent = vistaCiclos ? "🔁 Vista por Años" : "🔁 Vista por Ciclos";
 
 actualizarCreditos();
 renderizarMalla();
