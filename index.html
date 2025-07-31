@@ -2,48 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Malla Curricular de Enfermería</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malla Curricular Enfermería</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
   <header>
-    <h1>Malla Curricular de Enfermería</h1>
-    <div class="controles-superiores">
-      <div class="creditos-info">
+    <h1>Malla Curricular – Enfermería</h1>
+    <div class="controles">
+      <button id="modo-oscuro-btn">🌙 Modo Oscuro</button>
+      <div class="creditos">
         Créditos aprobados: <span id="creditos-aprobados">0</span> / <span id="creditos-totales">0</span>
       </div>
-      <button id="modo-oscuro-btn">🌙 Modo Oscuro</button>
     </div>
   </header>
 
   <main id="contenedor-malla"></main>
 
-  <!-- Template para cursos normales -->
+  <!-- Plantilla para cada curso -->
   <template id="curso-template">
     <div class="curso">
-      <div class="curso-info">
-        <h3 class="nombre-curso"></h3>
-        <p class="codigo-curso"></p>
-        <p class="creditos-curso"></p>
-      </div>
-      <button class="btn-aprobar">Aprobar</button>
+      <strong class="nombre-curso"></strong>
+      <div class="codigo-curso"></div>
+      <div class="creditos-curso"></div>
     </div>
   </template>
 
-  <!-- Template para cursos electivos con selector -->
-  <template id="electivo-template">
-    <div class="curso">
-      <div class="curso-info">
-        <h3 class="nombre-curso">Electivo</h3>
-        <select class="selector-electivo">
-          <option value="">Selecciona un curso electivo</option>
-        </select>
-      </div>
-    </div>
-  </template>
-
-  <!-- IMPORTANTE: Script se carga al final para que DOM esté listo -->
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
