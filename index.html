@@ -8,26 +8,26 @@
 </head>
 <body>
   <header>
-    Malla Curricular de Enfermería
+    <h1>Malla Curricular - Enfermería</h1>
+    <div class="modo-toggle">
+      <label for="modoOscuro">Modo oscuro</label>
+      <input type="checkbox" id="modoOscuro" />
+    </div>
   </header>
 
-  <div id="controls">
-    <div id="creditCounter">Créditos Aprobados: 0</div>
-    <div>
-      <button onclick="resetProgress()">Reiniciar Progreso</button>
-      <button onclick="toggleDarkMode()">Modo Claro/Oscuro</button>
-    </div>
-  </div>
+  <main>
+    <section class="info-electivos">
+      <p>Los cursos electivos no se cuentan directamente en los créditos totales. Debes elegir uno de la lista general para Electivo I, II y III cuando llegues a esos ciclos.</p>
+    </section>
 
-  <div id="container">
-    <div class="grid" id="courseGrid">
-      <!-- Contenido generado por JavaScript -->
-    </div>
+    <section id="malla" class="malla-container">
+      <!-- Aquí se insertará la malla con JavaScript -->
+    </section>
 
-    <div class="elective-note">
-      * Los cursos electivos no se cuentan directamente en los créditos totales. Debes elegir uno de la lista general para Electivo I, II y III cuando llegues a esos ciclos.
-    </div>
-  </div>
+    <section class="resumen">
+      <p>Total de créditos aprobados: <span id="creditosAprobados">0</span></p>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
