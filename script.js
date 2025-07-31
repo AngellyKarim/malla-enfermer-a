@@ -63,7 +63,8 @@ const cursos = [
     prerrequisitos: ["EN7092"], año: 5, ciclo: 10 },
   { codigo: "EN7103", nombre: "TRABAJO DE INVESTIGACIÓN", creditos: 3,
     prerrequisitos: ["EN7093"], año: 5, ciclo: 10 }
-      ];
+    ];
+
 
 const contenedor = document.getElementById("contenedor-cursos");
 const creditosSpan = document.getElementById("creditos");
@@ -132,6 +133,8 @@ function renderCursos() {
   contenedor.appendChild(gridContainer);
   actualizarProgreso();
   document.body.classList.toggle("oscuro", modoOscuro);
+  btnModo.textContent = modoOscuro ? "Modo Claro" : "Modo Oscuro";
+  btnVista.textContent = vistaPorCiclo ? "Ver por Año" : "Ver por Ciclo";
 }
 
 function toggleCurso(curso) {
@@ -153,15 +156,12 @@ btnModo.addEventListener("click", () => {
   modoOscuro = !modoOscuro;
   guardarEstado();
   renderCursos();
-  btnModo.textContent = modoOscuro ? "Modo Claro" : "Modo Oscuro";
 });
 
 btnVista.addEventListener("click", () => {
   vistaPorCiclo = !vistaPorCiclo;
   guardarEstado();
   renderCursos();
-  btnVista.textContent = vistaPorCiclo ? "Ver por Año" : "Ver por Ciclo";
 });
 
 renderCursos();
-
