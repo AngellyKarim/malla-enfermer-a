@@ -2,13 +2,19 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Malla Curricular Interactiva - Enfermería</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malla Curricular - Enfermería</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
-  <h1>Malla Curricular Interactiva - Enfermería</h1>
-  <div id="malla"></div>
+  <h1>Malla Curricular - Enfermería</h1>
+
+  <div class="barra-superior">
+    <input type="text" id="busqueda" placeholder="Buscar curso por nombre o código..." />
+    <div id="progreso">Créditos aprobados: 0 / 250</div>
+  </div>
+
+  <div class="malla-container" id="malla-container"></div>
 
   <script src="script.js"></script>
 </body>
