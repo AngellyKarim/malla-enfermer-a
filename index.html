@@ -7,24 +7,26 @@
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
-  <header>Enfermería</header>
+  <header>
+    <h1>Enfermería</h1>
+  </header>
 
-  <div class="controls">
+  <div class="botones">
     <button id="toggleModo">Modo Oscuro</button>
     <button id="toggleVista">Ver por Ciclo</button>
   </div>
 
-  <div class="progreso">
-    <div id="barraProgreso"></div>
-  </div>
-  <div class="controls">
-    <span id="creditos">Créditos aprobados: 0</span>
+  <div class="progreso-container">
+    <span id="creditos">Créditos aprobados: 0 / 240</span>
+    <div class="barra">
+      <div id="barraProgreso"></div>
+    </div>
   </div>
 
   <main id="contenedor-cursos"></main>
 
   <footer>
-    © 2025 Malla Interactiva - Enfermería
+    &copy; 2025 - Malla curricular interactiva de Enfermería
   </footer>
 
   <script src="script.js"></script>
