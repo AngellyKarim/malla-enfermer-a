@@ -1,83 +1,132 @@
+/* estilos.css */
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fefefe;
+  background-color: #f8f5f2;
+  color: #333;
   margin: 0;
   padding: 0;
-  color: #333;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-header {
-  background-color: #f9e8e3;
-  color: #3e3e3e;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-main {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: flex-start;
-}
-
-h1 {
-  font-size: 2em;
-  margin: 0;
+body.modo-oscuro {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
 }
 
 h2 {
-  font-size: 1.6em;
-  margin-bottom: 10px;
-  color: #6a5d7b;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  margin: 20px;
+  background-color: #eacfcf;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 20px;
 }
 
 h3 {
-  font-size: 1.2em;
-  margin: 0 0 10px 0;
-  color: #877ca0;
+  margin-top: 0;
+  background-color: #d4e3dc;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+#contenedor-malla {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  gap: 30px;
+  overflow-x: auto;
+  padding: 20px;
 }
 
 .ciclo {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
-  margin-bottom: 30px;
+  background-color: #f0eef1;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 220px;
 }
 
 .curso {
-  border: 2px solid #d0c9d6;
   padding: 10px;
-  border-radius: 10px;
-  width: 200px;
-  background-color: #fdf6f0;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, background-color 0.3s ease;
+  border-radius: 8px;
+  background-color: #f7f0e8;
+  border: 1px solid #ddd;
   cursor: pointer;
-  user-select: none;
+  transition: transform 0.2s, background-color 0.3s;
 }
 
 .curso:hover {
-  transform: scale(1.02);
-  background-color: #f4ebe2;
+  transform: scale(1.03);
 }
 
-.bloqueado {
-  opacity: 0.5;
-  pointer-events: none;
-  background-color: #f2f2f2;
-  border-style: dashed;
-}
-
-.desbloqueado {
-  pointer-events: auto;
-}
-
-.aprobado {
+.curso.aprobado {
   text-decoration: line-through;
-  background-color: #dbe4dc;
-  border-color: #a3bfa3;
-  color: #4d5d4d;
+  background-color: #d6eadf;
+  border-color: #b6dfc2;
 }
 
+.curso.bloqueado {
+  background-color: #f0d6d6;
+  color: #888;
+  border-color: #e0b4b4;
+  cursor: not-allowed;
+}
+
+.curso.desbloqueado:not(.aprobado):hover {
+  background-color: #e5f4f1;
+}
+
+#contador-creditos {
+  margin: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+#toggle-modo {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #ddd;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#toggle-modo:hover {
+  background-color: #bbb;
+}
+
+body.modo-oscuro #toggle-modo {
+  background-color: #444;
+  color: #f5f5f5;
+}
+
+body.modo-oscuro .curso {
+  background-color: #333;
+  border-color: #555;
+  color: #eee;
+}
+
+body.modo-oscuro .curso.aprobado {
+  background-color: #2d4f2d;
+  border-color: #396b39;
+}
+
+body.modo-oscuro .curso.bloqueado {
+  background-color: #4d2d2d;
+  color: #aaa;
+  border-color: #6b3939;
+}
+
+body.modo-oscuro .curso.desbloqueado:hover {
+  background-color: #444d44;
+}
