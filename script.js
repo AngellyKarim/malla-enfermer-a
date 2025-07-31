@@ -1,61 +1,52 @@
 const cursos = [
   // 1er CICLO - Año 1
-  { codigo: "AC4012", nombre: "INGLÉS I", creditos: 3, prerrequisitos: [], año: 1, ciclo: 1 },
-  { codigo: "EN7011", nombre: "PROCESOS BIOLÓGICOS", creditos: 6, prerrequisitos: [], año: 1, ciclo: 1 },
-  { codigo: "EN7012", nombre: "PRÁCTICAS DE ENFERMERÍA", creditos: 5, prerrequisitos: [], año: 1, ciclo: 1 },
-  { codigo: "AC4011", nombre: "DESARROLLO HUMANO Y SOCIAL", creditos: 4, prerrequisitos: [], año: 1, ciclo: 1 },
-  { codigo: "TF5012", nombre: "ESTRUCTURA Y FUNCIÓN DEL CUERPO HUMANO", creditos: 4, prerrequisitos: [], año: 1, ciclo: 1 },
+  { codigo: "EN1101", nombre: "INTRODUCCIÓN A LA ENFERMERÍA", creditos: 3, prerrequisitos: [], año: 1, ciclo: 1 },
+  { codigo: "EN1102", nombre: "ANATOMÍA Y FISIOLOGÍA I", creditos: 4, prerrequisitos: [], año: 1, ciclo: 1 },
+  { codigo: "EN1103", nombre: "BIOQUÍMICA", creditos: 3, prerrequisitos: [], año: 1, ciclo: 1 },
+  { codigo: "EN1104", nombre: "FUNDAMENTOS DE SALUD PÚBLICA", creditos: 3, prerrequisitos: [], año: 1, ciclo: 1 },
 
   // 2do CICLO - Año 1
-  { codigo: "AC4021", nombre: "ESTILO DE VIDA, SALUD Y MEDIO AMBIENTE", creditos: 4, prerrequisitos: [], año: 1, ciclo: 2 },
-  { codigo: "AC4022", nombre: "INGLÉS II", creditos: 2, prerrequisitos: ["AC4012"], año: 1, ciclo: 2 },
-  { codigo: "EN7021", nombre: "SISTEMA MUSCULOESQUELÉTICO", creditos: 3, prerrequisitos: ["TF5012"], año: 1, ciclo: 2 },
-  { codigo: "EN7022", nombre: "SISTEMA NERVIOSO Y ENDOCRINO", creditos: 5, prerrequisitos: ["TF5012"], año: 1, ciclo: 2 },
-  { codigo: "EN7023", nombre: "PRÁCTICAS DE ENFERMERÍA II", creditos: 5, prerrequisitos: ["EN7012"], año: 1, ciclo: 2 },
-  { codigo: "ND4021", nombre: "MECANISMO DE AGRESIÓN Y DEFENSA I", creditos: 4, prerrequisitos: ["EN7011"], año: 1, ciclo: 2 },
+  { codigo: "EN1201", nombre: "ANATOMÍA Y FISIOLOGÍA II", creditos: 4, prerrequisitos: ["EN1102"], año: 1, ciclo: 2 },
+  { codigo: "EN1202", nombre: "MICROBIOLOGÍA Y PARASITOLOGÍA", creditos: 3, prerrequisitos: ["EN1103"], año: 1, ciclo: 2 },
+  { codigo: "EN1203", nombre: "ENFERMERÍA COMUNITARIA I", creditos: 3, prerrequisitos: ["EN1101", "EN1104"], año: 1, ciclo: 2 },
+  { codigo: "EN1204", nombre: "TÉCNICAS DE COMUNICACIÓN", creditos: 2, prerrequisitos: [], año: 1, ciclo: 2 },
 
   // 3er CICLO - Año 2
-  { codigo: "EN7031", nombre: "SISTEMA CARDIORESPIRATORIO", creditos: 5, prerrequisitos: [], año: 2, ciclo: 3 },
-  { codigo: "EN7032", nombre: "SISTEMA TEGUMENTARIO", creditos: 3, prerrequisitos: [], año: 2, ciclo: 3 },
-  { codigo: "EN7033", nombre: "PRÁCTICAS DE ENFERMERÍA III", creditos: 5, prerrequisitos: ["EN7023"], año: 2, ciclo: 3 },
-  { codigo: "EN7034", nombre: "BASES DE LA TERAPEÚTICA FARMACOLÓGICA", creditos: 4, prerrequisitos: [], año: 2, ciclo: 3 },
-  { codigo: "ND4032", nombre: "MECANISMOS DE AGRESIÓN Y DEFENSA II", creditos: 4, prerrequisitos: ["ND4021"], año: 2, ciclo: 3 },
+  { codigo: "EN2101", nombre: "FARMACOLOGÍA", creditos: 4, prerrequisitos: ["EN1201", "EN1202"], año: 2, ciclo: 3 },
+  { codigo: "EN2102", nombre: "ENFERMERÍA MÉDICO QUIRÚRGICA I", creditos: 4, prerrequisitos: ["EN1201"], año: 2, ciclo: 3 },
+  { codigo: "EN2103", nombre: "ENFERMERÍA COMUNITARIA II", creditos: 3, prerrequisitos: ["EN1203"], año: 2, ciclo: 3 },
+  { codigo: "EN2104", nombre: "SALUD MENTAL", creditos: 3, prerrequisitos: ["EN1204"], año: 2, ciclo: 3 },
 
   // 4to CICLO - Año 2
-  { codigo: "AC4041", nombre: "SALUD PÚBLICA Y SISTEMAS DE SALUD", creditos: 5, prerrequisitos: ["AC4021"], año: 2, ciclo: 4 },
-  { codigo: "EN7041", nombre: "SISTEMA URINARIO Y REPRODUCTIVO", creditos: 4, prerrequisitos: ["EN7031"], año: 2, ciclo: 4 },
-  { codigo: "EN7042", nombre: "SISTEMA DIGESTIVO", creditos: 4, prerrequisitos: ["EN7032"], año: 2, ciclo: 4 },
-  { codigo: "EN7043", nombre: "MECANISMO DE AGRESIÓN Y DEFENSA III", creditos: 4, prerrequisitos: ["ND4032"], año: 2, ciclo: 4 },
-  { codigo: "EN7044", nombre: "PRÁCTICAS DE ENFERMERÍA IV", creditos: 5, prerrequisitos: ["EN7033"], año: 2, ciclo: 4 },
+  { codigo: "EN2201", nombre: "ENFERMERÍA MÉDICO QUIRÚRGICA II", creditos: 4, prerrequisitos: ["EN2102"], año: 2, ciclo: 4 },
+  { codigo: "EN2202", nombre: "ENFERMERÍA MATERNO INFANTIL I", creditos: 4, prerrequisitos: ["EN2102"], año: 2, ciclo: 4 },
+  { codigo: "EN2203", nombre: "BIOESTADÍSTICA", creditos: 3, prerrequisitos: ["EN2103"], año: 2, ciclo: 4 },
 
   // 5to CICLO - Año 3
-  { codigo: "AC4051", nombre: "PREVENCIÓN Y PROMOCIÓN DE LA SALUD", creditos: 5, prerrequisitos: ["AC4041"], año: 3, ciclo: 5 },
-  { codigo: "EN7051", nombre: "SALUD DEL NIÑO Y ADOLESCENTE", creditos: 7, prerrequisitos: ["EN7044"], año: 3, ciclo: 5 },
-  { codigo: "EN7052", nombre: "SALUD DE LA MUJER Y NEONATO", creditos: 7, prerrequisitos: ["EN7044"], año: 3, ciclo: 5 },
+  { codigo: "EN3101", nombre: "ENFERMERÍA MATERNO INFANTIL II", creditos: 4, prerrequisitos: ["EN2202"], año: 3, ciclo: 5 },
+  { codigo: "EN3102", nombre: "ENFERMERÍA EN SALUD MENTAL", creditos: 4, prerrequisitos: ["EN2104"], año: 3, ciclo: 5 },
+  { codigo: "EN3103", nombre: "GERONTOLOGÍA", creditos: 3, prerrequisitos: ["EN2201"], año: 3, ciclo: 5 },
   { codigo: "ELC01", nombre: "ELECTIVO I", creditos: 3, prerrequisitos: [], año: 3, ciclo: 5 },
 
   // 6to CICLO - Año 3
-  { codigo: "AC4061", nombre: "CIENCIA Y DESCUBRIMIENTO", creditos: 6, prerrequisitos: [], año: 3, ciclo: 6 },
-  { codigo: "EN7061", nombre: "GESTIÓN CLÍNICA Y HOSPITALARIA", creditos: 4, prerrequisitos: ["EN7051"], año: 3, ciclo: 6 },
-  { codigo: "EN7062", nombre: "SALUD DEL ADULTO", creditos: 0, prerrequisitos: ["EN7052"], año: 3, ciclo: 6 },
-  { codigo: "ELC02", nombre: "ELECTIVO II", creditos: 3, prerrequisitos: [], año: 3, ciclo: 6 },
+  { codigo: "EN3201", nombre: "ADMINISTRACIÓN EN ENFERMERÍA", creditos: 4, prerrequisitos: ["EN3101"], año: 3, ciclo: 6 },
+  { codigo: "EN3202", nombre: "ÉTICA PROFESIONAL", creditos: 2, prerrequisitos: [], año: 3, ciclo: 6 },
+  { codigo: "EN3203", nombre: "SEMINARIO DE INVESTIGACIÓN", creditos: 3, prerrequisitos: ["EN2203"], año: 3, ciclo: 6 },
 
   // 7mo CICLO - Año 4
-  { codigo: "EN7071", nombre: "SALUD DEL ADULTO MAYOR", creditos: 7, prerrequisitos: ["EN7062"], año: 4, ciclo: 7 },
-  { codigo: "EN7072", nombre: "SALUD COMUNITARIA Y FAMILIAR", creditos: 5, prerrequisitos: ["EN7061"], año: 4, ciclo: 7 },
-  { codigo: "AC4063", nombre: "TENDENCIAS GLOBALES EN SALUD", creditos: 3, prerrequisitos: [], año: 4, ciclo: 7 },
-  { codigo: "ELC03", nombre: "ELECTIVO III", creditos: 3, prerrequisitos: [], año: 4, ciclo: 7 },
+  { codigo: "EN4101", nombre: "ATENCIÓN PRIMARIA EN SALUD", creditos: 4, prerrequisitos: ["EN3103"], año: 4, ciclo: 7 },
+  { codigo: "EN4102", nombre: "PRÁCTICAS PRE-PROFESIONALES I", creditos: 8, prerrequisitos: ["EN3201"], año: 4, ciclo: 7 },
+  { codigo: "EN4103", nombre: "SEMINARIOS DE INTEGRACIÓN CLÍNICA I", creditos: 1, prerrequisitos: ["EN3203"], año: 4, ciclo: 7 },
 
   // 8vo CICLO - Año 4
-  { codigo: "EN7082", nombre: "SALUD MENTAL", creditos: 4, prerrequisitos: ["EN7072"], año: 4, ciclo: 8 },
-  { codigo: "EN7083", nombre: "CUIDADOS PALIATIVOS Y DEL FIN DE LA VIDA", creditos: 4, prerrequisitos: ["AC4051"], año: 4, ciclo: 8 },
-  { codigo: "EN7084", nombre: "URGENCIAS Y EMERGENCIAS", creditos: 5, prerrequisitos: ["EN7071"], año: 4, ciclo: 8 },
-  { codigo: "AC4064", nombre: "PROYECTOS DE INTERVENCIÓN EN SALUD", creditos: 3, prerrequisitos: [], año: 4, ciclo: 8 },
+  { codigo: "EN4201", nombre: "GESTIÓN DE SERVICIOS DE SALUD", creditos: 3, prerrequisitos: ["EN3201"], año: 4, ciclo: 8 },
+  { codigo: "EN4202", nombre: "SALUD OCUPACIONAL", creditos: 3, prerrequisitos: ["EN4101"], año: 4, ciclo: 8 },
+  { codigo: "ELC02", nombre: "ELECTIVO II", creditos: 3, prerrequisitos: [], año: 4, ciclo: 8 },
 
   // 9no CICLO - Año 5
-  { codigo: "EN7091", nombre: "PRÁCTICAS PRE-PROFESIONALES I", creditos: 14, prerrequisitos: ["AC4011", "AC4012", "AC4021", "AC4022", "AC4041", "AC4051", "AC4061", "ELC01", "ELC02", "ELC03", "EN7011", "EN7012", "EN7021", "EN7022", "EN7023", "EN7031", "EN7032", "EN7033", "EN7041", "EN7042", "EN7043", "EN7044", "EN7051", "EN7052", "EN7061", "EN7062", "EN7071", "EN7072", "EN7082", "EN7083", "EN7084", "ND4021", "ND4032", "TF5012"], año: 5, ciclo: 9 },
-  { codigo: "EN7092", nombre: "SEMINARIOS DE INTEGRACIÓN CLÍNICA I", creditos: 1, prerrequisitos: ["EN7081"], año: 5, ciclo: 9 },
-  { codigo: "EN7093", nombre: "SEMINARIO DE INVESTIGACIÓN", creditos: 3, prerrequisitos: ["AC4061"], año: 5, ciclo: 9 },
+  { codigo: "EN7091", nombre: "INTERNADO HOSPITALARIO", creditos: 10, prerrequisitos: ["EN4102"], año: 5, ciclo: 9 },
+  { codigo: "EN7092", nombre: "ÉTICA Y LEGISLACIÓN EN SALUD", creditos: 2, prerrequisitos: ["EN3202"], año: 5, ciclo: 9 },
+  { codigo: "EN7093", nombre: "METODOLOGÍA DE LA INVESTIGACIÓN", creditos: 3, prerrequisitos: ["EN3203"], año: 5, ciclo: 9 },
 
   // 10mo CICLO - Año 5
   { codigo: "EN7101", nombre: "PRÁCTICAS PRE-PROFESIONALES II", creditos: 14, prerrequisitos: ["EN7091"], año: 5, ciclo: 10 },
@@ -63,7 +54,6 @@ const cursos = [
   { codigo: "EN7103", nombre: "TRABAJO DE INVESTIGACIÓN", creditos: 3, prerrequisitos: ["EN7093"], año: 5, ciclo: 10 }
 ];
 
-// Lista general de electivos (no asignados aún a ELC01, ELC02 o ELC03)
 const electivosDisponibles = [
   { codigo: "AC4E01", nombre: "EDUCACIÓN, DERECHOS Y AUTONOMÍA DE LAS PERSONAS CON DISCAPACIDAD", creditos: 2 },
   { codigo: "LC5E01", nombre: "SALUD AMBIENTAL Y URBANA", creditos: 3 },
@@ -75,28 +65,59 @@ const electivosDisponibles = [
   { codigo: "PS4E02", nombre: "FUNDAMENTOS DEL BIENESTAR", creditos: 3 },
   { codigo: "TF5E01", nombre: "IMPACTO DE LA ACTIVIDAD FÍSICA EN LA SALUD Y EL BIENESTAR", creditos: 3 }
 ];
-let cursosAprobados = JSON.parse(localStorage.getItem("cursosAprobados")) || [];
+let electivosSeleccionados = JSON.parse(localStorage.getItem("electivosSeleccionados")) || {};
 
-function guardarEstado() {
-  localStorage.setItem("cursosAprobados", JSON.stringify(cursosAprobados));
+function guardarElectivos() {
+  localStorage.setItem("electivosSeleccionados", JSON.stringify(electivosSeleccionados));
 }
 
-function estaDesbloqueado(curso) {
-  return curso.prerrequisitos.every(pr => cursosAprobados.includes(pr));
+function crearSelectorElectivo(cursoBase) {
+  const wrapper = document.createElement("div");
+  wrapper.classList.add("curso");
+
+  const label = document.createElement("label");
+  label.textContent = `${cursoBase.codigo} - ${cursoBase.nombre}`;
+  label.style.display = "block";
+  wrapper.appendChild(label);
+
+  const select = document.createElement("select");
+  const yaSeleccionados = Object.values(electivosSeleccionados);
+  
+  const opcionDefault = document.createElement("option");
+  opcionDefault.value = "";
+  opcionDefault.textContent = "Selecciona un curso electivo";
+  opcionDefault.disabled = true;
+  opcionDefault.selected = true;
+  select.appendChild(opcionDefault);
+
+  electivosDisponibles.forEach(electivo => {
+    if (!yaSeleccionados.includes(electivo.codigo) || electivosSeleccionados[cursoBase.codigo] === electivo.codigo) {
+      const option = document.createElement("option");
+      option.value = electivo.codigo;
+      option.textContent = `${electivo.codigo} - ${electivo.nombre} (${electivo.creditos} cr)`;
+      if (electivosSeleccionados[cursoBase.codigo] === electivo.codigo) {
+        option.selected = true;
+      }
+      select.appendChild(option);
+    }
+  });
+
+  select.addEventListener("change", () => {
+    electivosSeleccionados[cursoBase.codigo] = select.value;
+    guardarElectivos();
+    if (!cursosAprobados.includes(cursoBase.codigo)) {
+      cursosAprobados.push(cursoBase.codigo);
+    }
+    guardarEstado();
+    renderizarMalla();
+    actualizarProgreso();
+  });
+
+  wrapper.appendChild(select);
+  return wrapper;
 }
 
-function actualizarProgreso() {
-  const totalCreditos = cursos.filter(c => !c.codigo.includes("E0")).reduce((acc, c) => acc + c.creditos, 0);
-  const creditosAprobados = cursos
-    .filter(c => cursosAprobados.includes(c.codigo))
-    .reduce((acc, c) => acc + c.creditos, 0);
-
-  const porcentaje = Math.floor((creditosAprobados / totalCreditos) * 100);
-  document.getElementById("barraProgreso").style.width = `${porcentaje}%`;
-  document.getElementById("creditosAprobados").textContent = creditosAprobados;
-  document.getElementById("creditosTotales").textContent = totalCreditos;
-}
-
+// Modifica esta parte de renderizarMalla para insertar el selector:
 function renderizarMalla() {
   const contenedor = document.getElementById("contenedorMalla");
   contenedor.innerHTML = "";
@@ -112,30 +133,43 @@ function renderizarMalla() {
     for (let ciclo = (año - 1) * 2 + 1; ciclo <= año * 2; ciclo++) {
       const cursosDelCiclo = cursos.filter(c => c.ciclo === ciclo);
       cursosDelCiclo.forEach(curso => {
-        const div = document.createElement("div");
-        div.classList.add("curso");
-        div.textContent = `${curso.codigo} - ${curso.nombre} (${curso.creditos} cr)`;
-        div.dataset.codigo = curso.codigo;
+        let div;
 
-        if (cursosAprobados.includes(curso.codigo)) {
-          div.classList.add("aprobado");
-        } else if (estaDesbloqueado(curso)) {
-          div.classList.add("desbloqueado");
-        } else {
-          div.classList.add("bloqueado");
-        }
-
-        div.addEventListener("click", () => {
+        if (curso.codigo.startsWith("ELC")) {
           if (!estaDesbloqueado(curso)) return;
-          if (cursosAprobados.includes(curso.codigo)) {
-            cursosAprobados = cursosAprobados.filter(c => c !== curso.codigo);
+
+          div = crearSelectorElectivo(curso);
+          if (electivosSeleccionados[curso.codigo]) {
+            div.classList.add("aprobado");
           } else {
-            cursosAprobados.push(curso.codigo);
+            div.classList.add("desbloqueado");
           }
-          guardarEstado();
-          renderizarMalla();
-          actualizarProgreso();
-        });
+        } else {
+          div = document.createElement("div");
+          div.classList.add("curso");
+          div.textContent = `${curso.codigo} - ${curso.nombre} (${curso.creditos} cr)`;
+          div.dataset.codigo = curso.codigo;
+
+          if (cursosAprobados.includes(curso.codigo)) {
+            div.classList.add("aprobado");
+          } else if (estaDesbloqueado(curso)) {
+            div.classList.add("desbloqueado");
+          } else {
+            div.classList.add("bloqueado");
+          }
+
+          div.addEventListener("click", () => {
+            if (!estaDesbloqueado(curso)) return;
+            if (cursosAprobados.includes(curso.codigo)) {
+              cursosAprobados = cursosAprobados.filter(c => c !== curso.codigo);
+            } else {
+              cursosAprobados.push(curso.codigo);
+            }
+            guardarEstado();
+            renderizarMalla();
+            actualizarProgreso();
+          });
+        }
 
         columna.appendChild(div);
       });
@@ -144,28 +178,4 @@ function renderizarMalla() {
     contenedor.appendChild(columna);
   }
 }
-
-function limpiarProgreso() {
-  if (confirm("¿Seguro que deseas borrar tu progreso?")) {
-    cursosAprobados = [];
-    guardarEstado();
-    renderizarMalla();
-    actualizarProgreso();
-  }
-}
-
-function toggleModoOscuro() {
-  document.body.classList.toggle("oscuro");
-  localStorage.setItem("modoOscuro", document.body.classList.contains("oscuro"));
-}
-
-document.getElementById("btnLimpiar").addEventListener("click", limpiarProgreso);
-document.getElementById("btnModoOscuro").addEventListener("click", toggleModoOscuro);
-
-if (localStorage.getItem("modoOscuro") === "true") {
-  document.body.classList.add("oscuro");
-}
-
-renderizarMalla();
-actualizarProgreso();
 
