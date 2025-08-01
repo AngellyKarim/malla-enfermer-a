@@ -2,31 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Malla Curricular – Enfermería</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Curricular Enfermería</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
   <header>
-    <h1>Malla Curricular – Enfermería</h1>
-    <div class="controles">
+    <h1>Malla Curricular de Enfermería</h1>
+    <div class="botones-header">
       <button id="modo-oscuro-btn">🌙 Modo Oscuro</button>
-      <button id="cambiar-vista-btn">🔄 Cambiar Vista</button>
-      <div class="creditos">
-        Créditos aprobados: <span id="creditos-aprobados">0</span> / <span id="creditos-totales">0</span>
-      </div>
+      <button id="vista-btn">🔁 Vista por Ciclos</button>
+    </div>
+    <div class="creditos-info">
+      <span><strong>Créditos aprobados:</strong> <span id="creditos-aprobados">0</span></span>
+      <span><strong>Total de créditos:</strong> <span id="creditos-totales">0</span></span>
     </div>
   </header>
 
-  <main>
-    <div id="contenedor-malla"></div>
-  </main>
+  <main id="contenedor-malla"></main>
 
   <template id="curso-template">
     <div class="curso">
-      <strong class="nombre-curso"></strong>
-      <div class="codigo-curso"></div>
-      <div class="creditos-curso"></div>
+      <div class="info-curso">
+        <div class="nombre-curso"></div>
+        <div class="codigo-curso"></div>
+        <div class="creditos-curso"></div>
+      </div>
     </div>
   </template>
 
