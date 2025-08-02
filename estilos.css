@@ -1,39 +1,73 @@
-:root {
-    /* Paleta de colores pastel */
-    --pastel-light-blue: #a3c1d4;
-    --pastel-blue: #6c98b6;
-    --pastel-green: #9fc3b0;
-    --pastel-orange: #f2c79a;
-    --pastel-purple: #c5a4d9;
-    --pastel-pink: #e0b0d3;
-    --pastel-yellow: #f8e5b4;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-    /* Colores base para light mode */
-    --background-color: #f7f9fc;
-    --text-color: #333;
-    --card-background: #ffffff;
-    --card-border: #e0e0e0;
-    --button-bg: var(--pastel-blue);
-    --button-text: #fff;
-    --approved-bg: var(--pastel-green);
-    --unlocked-bg: var(--pastel-yellow);
-    --locked-bg: var(--pastel-pink);
-    --header-bg: var(--pastel-purple);
-    --shadow-color: rgba(0, 0, 0, 0.1);
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+button {
+    background-color: #a8dadc;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    background-color: #457b9d;
+    color: white;
+}
+
+.credit-counter {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+
+.course {
+    background-color: #f1faee;
+    border: 1px solid #457b9d;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.course.completed {
+    background-color: #a8dadc;
+    text-decoration: line-through;
+}
+
+.electives {
+    margin-top: 20px;
 }
 
 .dark-mode {
-    --background-color: #121212;
-    --text-color: #e0e0e0;
-    --card-background: #1e1e1e;
-    --card-border: #333;
-    --button-bg: #4c687e;
-    --button-text: #e0e0e0;
-    --approved-bg: #4f6a5b;
-    --unlocked-bg: #806b4d;
-    --locked-bg: #74586f;
-    --header-bg: #5c4a6b;
-    --shadow-color: rgba(255, 255, 255, 0.1);
+    background-color: #333;
+    color: #f0f4f8;
+}
+
+.dark-mode button {
+    background-color: #457b9d;
+    color: white;
+}
 }
 
 body {
