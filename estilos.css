@@ -3,7 +3,6 @@
   --pastel-blue: #c1e0ff;
   --pastel-mint: #c4f0c8;
   --pastel-lavender: #e3d0ff;
-  --pastel-yellow: #fff6c3;
   --text-dark: #333;
   --text-light: #f8f8f8;
 }
@@ -58,4 +57,52 @@ body {
   100% { transform: scale(1); }
 }
 
-/* Rest of CSS styles would continue here */
+.credit-counter {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.credit-item {
+  display: flex;
+  align-items: center;
+}
+
+.counter {
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.course {
+  background-color: #f1faee;
+  border: 1px solid #457b9d;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.course.completed {
+  background-color: #a8dadc;
+  text-decoration: line-through;
+}
+
+.electives {
+  margin-top: 20px;
+}
+
+.dark-mode {
+  background-color: #333;
+  color: #f0f4f8;
+}
+
+.dark-mode button {
+  background-color: #457b9d;
+  color: white;
+}
