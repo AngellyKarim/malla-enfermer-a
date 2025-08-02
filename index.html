@@ -4,23 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Gestión de Cursos</title>
+    <title>Plan Académico de Enfermería 🌸</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>Gestión de Cursos</h1>
-        <button id="toggle-mode">Modo Oscuro</button>
-        <div class="credit-counter">
-            <span id="approved-credits">Créditos Aprobados: 0</span>
-            <span id="total-credits">Créditos Totales: 0</span>
+        <div class="header">
+            <div class="header-decoration">
+                <div class="pastel-circle pink"></div>
+                <div class="pastel-circle blue"></div>
+                <div class="pastel-circle mint"></div>
+                <div class="pastel-circle lavender"></div>
+            </div>
+            <h1><span class="pastel-highlight">Plan Académico</span> de Enfermería <span class="emoji">🌸</span> <i class="fas fa-heartbeat pulse-icon"></i></h1>
+            <div class="header-controls">
+                <button id="toggle-mode" class="aesthetic-btn pastel-btn">
+                    <i class="fas fa-moon icon"></i> <span class="btn-text">Modo Oscuro</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="credit-counter aesthetic-container">
+            <div class="credit-item">
+                <i class="fas fa-check-circle pastel-icon pink"></i>
+                <span>Créditos aprobados:</span>
+                <span class="counter pastel-bubble">0</span>
+            </div>
+            <div class="credit-item">
+                <i class="fas fa-book pastel-icon blue"></i>
+                <span>Total créditos:</span>
+                <span class="counter pastel-bubble">0</span>
+            </div>
         </div>
         <div class="courses-grid">
             <!-- Aquí se generarán los cursos dinámicamente -->
         </div>
         <div class="electives">
-            <h2>Electivos</h2>
-            <select id="electives-dropdown">
-                <option value="">Selecciona un curso electivo</option>
+            <h2 class="section-title"><i class="fas fa-star"></i> Electivos</h2>
+            <select id="electives-dropdown" class="pastel-dropdown">
+                <option value="" disabled selected><i class="fas fa-chevron-down dropdown-icon"></i> Selecciona un electivo...</option>
                 <option value="AC4E01">EDUCACIÓN, DERECHOS Y AUTONOMÍA DE LAS PERSONAS CON DISCAPACIDAD (2 créditos)</option>
                 <option value="LC5E01">SALUD AMBIENTAL Y URBANA (3 créditos)</option>
                 <option value="MH3E01">DETERMINANTES SOCIALES DE SALUD Y CONDUCTAS DE SALUD (3 créditos)</option>
