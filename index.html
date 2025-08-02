@@ -3,21 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vista de Escritorio y Móvil</title>
+    <title>Malla Curricular de Enfermería</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
-<body>
-
-    <div class="container">
-        <div class="controls">
-            <button id="showYears">Años</button>
-            <button id="showCycles">Ciclos</button>
-        </div>
-        <div id="dataView">
+<body class="light-mode">
+    <header>
+        <h1>Malla Curricular de Enfermería</h1>
+        <div class="header-controls">
+            <div class="credit-counter">
+                <span>Créditos Aprobados: <span id="approved-credits">0</span> / <span id="total-credits">0</span></span>
             </div>
-    </div>
+            <button id="mode-toggle">Modo Oscuro</button>
+        </div>
+    </header>
 
+    <main class="curriculum-grid">
+        <div class="year">
+            <h2>Primer Año</h2>
+            <div class="cycle">
+                <h3>1er Ciclo</h3>
+                <div class="course-container">
+                    </div>
+            </div>
+            <div class="cycle">
+                <h3>2do Ciclo</h3>
+                <div class="course-container">
+                    </div>
+            </div>
+        </div>
+
+        <div class="year">
+            <h2>Segundo Año</h2>
+            <div class="cycle">
+                <h3>3er Ciclo</h3>
+                <div class="course-container">
+                    </div>
+            </div>
+            <div class="cycle">
+                <h3>4to Ciclo</h3>
+                <div class="course-container">
+                    </div>
+            </div>
+        </div>
+        
+        <div class="year">
+            <h2>Tercer Año</h2>
+            <div class="cycle">
+                <h3>5to Ciclo</h3>
+                <div class="course-container">
+                    </div>
+            </div>
+            <div class="cycle">
+                <h3>6to Ciclo</h3>
+                <div class="course-container">
+                    </div>
+            </div>
+        </div>
+        
+        <div class="year">
+            <h2>Cuarto Año</h2>
+            <div class="cycle">
+                <h3>7mo Ciclo</h3>
+                <div class="course-container">
+                    </div>
+            </div>
+            <div class="cycle">
+                <h3>8vo Ciclo</h3>
+                <div class="course-container">
+                    </div>
+            </div>
+        </div>
+
+        <div class="year">
+            <h2>Quinto Año</h2>
+            <div class="cycle">
+                <h3>9no Ciclo</h3>
+                <div class="course-container">
+                    </div>
+            </div>
+            <div class="cycle">
+                <h3>10mo Ciclo</h3>
+                <div class="course-container">
+                    </div>
+            </div>
+        </div>
+
+        <div class="year">
+            <h2>Cursos Electivos</h2>
+            <div class="cycle">
+                <h3>Lista de Electivos</h3>
+                <div class="elective-dropdown">
+                    <label for="elective-selector">Añadir Electivo:</label>
+                    <select id="elective-selector">
+                        <option value="">Selecciona un electivo...</option>
+                        </select>
+                </div>
+                <div class="course-container elective-container">
+                    </div>
+            </div>
+        </div>
+    </main>
     <script src="script.js"></script>
-
 </body>
 </html>
