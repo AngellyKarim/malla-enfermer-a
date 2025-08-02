@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Curricular de Enfermería</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <header>
+    <h1>Malla Curricular - Enfermería</h1>
+    <div class="acciones">
+      <button id="modo-oscuro-btn">🌙 Modo Oscuro</button>
+      <button id="vista-btn">🔁 Vista por Ciclos</button>
+    </div>
+    <div class="creditos">
+      Créditos Aprobados: <span id="creditos-aprobados">0</span> / <span id="creditos-totales">0</span>
+    </div>
+  </header>
+  <main id="contenedor-malla"></main>
+
+  <template id="curso-template">
+    <div class="curso">
+      <div class="nombre-curso"></div>
+      <div class="codigo-curso"></div>
+      <div class="creditos-curso"></div>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
