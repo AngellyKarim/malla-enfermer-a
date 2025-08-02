@@ -19,8 +19,10 @@
             </div>
             <h1><span class="pastel-highlight">Plan Académico</span> de Enfermería <span class="emoji">🌸</span> <i class="fas fa-heartbeat pulse-icon"></i></h1>
             <div class="header-controls">
-                <button id="toggle-mode" class="aesthetic-btn pastel-btn">
-                    <i class="fas fa-moon icon"></i> <span class="btn-text">Modo Oscuro</span>
+                <button id="toggle-mode" class="aesthetic-btn pastel-btn mode-toggle">
+                    <i class="fas fa-moon icon"></i>
+                    <span class="btn-text">Modo Oscuro</span>
+                    <div class="toggle-switch"></div>
                 </button>
             </div>
         </div>
@@ -34,6 +36,48 @@
             <div class="credit-item">
                 <i class="fas fa-book pastel-icon blue"></i>
                 <span>Total créditos:</span>
+                <span class="counter pastel-bubble">0</span>
+            </div>
+        </div>
+        <div class="year-controls">
+            <button id="prev-year" class="nav-btn"><i class="fas fa-chevron-left"></i></button>
+            <span id="current-year">Año 1</span>
+            <button id="next-year" class="nav-btn"><i class="fas fa-chevron-right"></i></button>
+            <button id="toggle-view" class="view-btn">
+                <i class="fas fa-table-cells"></i> <span>Cambiar Vista</span>
+            </button>
+        </div>
+        <div class="courses-container">
+            <div class="desktop-view">
+                <div class="year-grid">
+                    <!-- Desktop view with horizontal layout for cycles -->
+                </div>
+            </div>
+            <div class="mobile-view">
+                <div class="courses-grid">
+                    <!-- Mobile view with vertical layout -->
+                </div>
+            </div>
+        </div>
+        <div class="electives floating-panel">
+            <h2 class="section-title"><i class="fas fa-star"></i> Electivos</h2>
+            <select id="electives-dropdown" class="pastel-dropdown">
+                <option value="" disabled selected><i class="fas fa-chevron-down dropdown-icon"></i> Selecciona un electivo...</option>
+                <option value="AC4E01">EDUCACIÓN, DERECHOS Y AUTONOMÍA DE LAS PERSONAS CON DISCAPACIDAD (2 créditos)</option>
+                <option value="LC5E01">SALUD AMBIENTAL Y URBANA (3 créditos)</option>
+                <option value="MH3E01">DETERMINANTES SOCIALES DE SALUD Y CONDUCTAS DE SALUD (3 créditos)</option>
+                <option value="MH3E02">ANTROPOLOGÍA MÉDICA: CULTURA Y SALUD (3 créditos)</option>
+                <option value="ND4E01">LA DIETA OCCIDENTAL (3 créditos)</option>
+                <option value="OD5E01">MÉTODOS DE INVESTIGACIÓN PARA PROFESIONALES DE SALUD (3 créditos)</option>
+                <option value="PS4E01">MANEJO DEL ÉSTRES PARA EL BIENESTAR (3 créditos)</option>
+                <option value="PS4E02">FUNDAMENTOS DEL BIENESTAR (3 créditos)</option>
+                <option value="TF5E01">IMPACTO DE LA ACTIVIDAD FÍSICA EN LA SALUD Y EL BIENESTAR (3 créditos)</option>
+            </select>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
                 <span class="counter pastel-bubble">0</span>
             </div>
         </div>
