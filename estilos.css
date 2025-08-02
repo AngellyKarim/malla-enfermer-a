@@ -1,70 +1,61 @@
+:root {
+  --pastel-pink: #ffd6e0;
+  --pastel-blue: #c1e0ff;
+  --pastel-mint: #c4f0c8;
+  --pastel-lavender: #e3d0ff;
+  --pastel-yellow: #fff6c3;
+  --text-dark: #333;
+  --text-light: #f8f8f8;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
-    transition: background-color 0.3s, color 0.3s;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fef6fb;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  padding: 20px;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-h1 {
-    text-align: center;
+.header {
+  position: relative;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
-button {
-    background-color: #a8dadc;
-    color: #333;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-bottom: 20px;
+.header-decoration {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
 }
 
-button:hover {
-    background-color: #457b9d;
-    color: white;
+.pastel-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
-.credit-counter {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+.pink { background-color: var(--pastel-pink); }
+.blue { background-color: var(--pastel-blue); }
+.mint { background-color: var(--pastel-mint); }
+.lavender { background-color: var(--pastel-lavender); }
+
+.pulse-icon {
+  animation: pulse 2s infinite;
 }
 
-.courses-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
 
-.course {
-    background-color: #f1faee;
-    border: 1px solid #457b9d;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: center;
-    transition: background-color 0.3s;
-}
-
-.course.completed {
-    background-color: #a8dadc;
-    text-decoration: line-through;
-}
-
-.electives {
-    margin-top: 20px;
-}
-
-.dark-mode {
-    background-color: #333;
-    color: #f0f4f8;
-}
-
-.dark-mode button {
-    background-color: #457b9d;
-    color: white;
-}
+/* Rest of CSS styles would continue here */
