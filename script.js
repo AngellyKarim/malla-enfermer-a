@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { code: 'AC4064', name: 'PROYECTOS DE INTERVENCIÓN EN SALUD', credits: 3, cycle: 8, prereqs: [] },
         // Noveno Año
         { code: 'EN7091', name: 'PRÁCTICAS PRE-PROFESIONALES I', credits: 14, cycle: 9, prereqs: ['AC4011', 'AC4012', 'AC4021', 'AC4022', 'AC4041', 'AC4051', 'AC4061', 'ELC01', 'ELC02', 'ELC03', 'EN7011', 'EN7012', 'EN7021', 'EN7022', 'EN7023', 'EN7031', 'EN7032', 'EN7033', 'EN7041', 'EN7042', 'EN7043', 'EN7044', 'EN7051', 'EN7052', 'EN7061', 'EN7062', 'EN7071', 'EN7072', 'EN7082', 'EN7083', 'EN7084', 'ND4021', 'ND4032', 'TF5012'] },
-        { code: 'EN7092', name: 'SEMINARIOS DE INTEGRACIÓN CLÍNICA I', credits: 1, cycle: 9, prereqs: ['EN7082'] }, // Hay una errata en el prompt, se asume EN7082 en lugar de EN7081
+        { code: 'EN7092', name: 'SEMINARIOS DE INTEGRACIÓN CLÍNICA I', credits: 1, cycle: 9, prereqs: ['EN7082'] }, 
         { code: 'EN7093', name: 'SEMINARIO DE INVESTIGACIÓN', credits: 3, cycle: 9, prereqs: ['AC4061'] },
         // Décimo Año
         { code: 'EN7101', name: 'PRÁCTICAS PRE-PROFESIONALES II', credits: 14, cycle: 10, prereqs: ['EN7091'] },
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedElectives = JSON.parse(localStorage.getItem('selectedElectives')) || [];
     const modeToggleBtn = document.getElementById('mode-toggle');
 
-    const totalCredits = courses.reduce((sum, course) => sum + course.credits, 0) + (selectedElectives.length * 3); // 3 creditos por electivo
+    const totalCredits = courses.reduce((sum, course) => sum + course.credits, 0);
     const totalElectiveCredits = 3 * 3; // 3 electivos de 3 creditos cada uno.
 
     document.getElementById('total-credits').textContent = totalCredits + totalElectiveCredits;
@@ -146,7 +146,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (approve) {
             approvedCourses[courseCode] = true;
         } else {
-            delete approvedCourses[courseCode];
+            // Desaprobar un curso también desaprueba sus dependencias
+            const coursesToUnapprove = [courseCode];
+            let i = 0;
+            while(i < coursesToUnapprove.length) {
+                const currentCode = coursesToUnapprove[i];
+                delete approvedCourses[currentCode];
+                
+                // Buscar cursos que tienen este como prerrequisito y añadirlos a la lista
+                courses.concat(electivesData).forEach(course => {
+                    if (course.prereqs.includes(currentCode) && approvedCourses[course.code] && !coursesToUnapprove.includes(course.code)) {
+                        coursesToUnapprove.push(course.code);
+                    }
+                });
+                i++;
+            }
         }
         localStorage.setItem('approvedCourses', JSON.stringify(approvedCourses));
         renderCourses();
@@ -163,17 +177,21 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('approved-credits').textContent = approvedCredits;
     }
 
-    // Llenar el dropdown de electivos
-    const electiveSelector = document.getElementById('elective-selector');
-    electivesData.forEach(elective => {
-        if (!selectedElectives.includes(elective.code)) {
-            const option = document.createElement('option');
-            option.value = elective.code;
-            option.textContent = `${elective.code} - ${elective.name} (${elective.credits} créditos)`;
-            electiveSelector.appendChild(option);
-        }
-    });
+    function renderElectiveDropdown() {
+        const electiveSelector = document.getElementById('elective-selector');
+        electiveSelector.innerHTML = '<option value="">Selecciona un electivo...</option>';
+        electivesData.forEach(elective => {
+            if (!selectedElectives.includes(elective.code)) {
+                const option = document.createElement('option');
+                option.value = elective.code;
+                option.textContent = `${elective.code} - ${elective.name} (${elective.credits} créditos)`;
+                electiveSelector.appendChild(option);
+            }
+        });
+    }
 
+    // Manejar el cambio en el dropdown de electivos
+    const electiveSelector = document.getElementById('elective-selector');
     electiveSelector.addEventListener('change', (e) => {
         const selectedCode = e.target.value;
         if (selectedCode && !selectedElectives.includes(selectedCode)) {
@@ -181,10 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 selectedElectives.push(selectedCode);
                 localStorage.setItem('selectedElectives', JSON.stringify(selectedElectives));
                 renderCourses();
-                // Limpiar el selector para que no aparezca el electivo ya seleccionado
-                const option = electiveSelector.querySelector(`option[value="${selectedCode}"]`);
-                if(option) option.remove();
-                electiveSelector.value = '';
+                renderElectiveDropdown(); // Volver a renderizar el dropdown para quitar el electivo seleccionado
             } else {
                 alert('Ya has seleccionado el máximo de 3 cursos electivos.');
                 electiveSelector.value = '';
@@ -203,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('theme', newMode);
         modeToggleBtn.textContent = newMode === 'light-mode' ? 'Modo Oscuro' : 'Modo Claro';
     });
-
+    
+    renderElectiveDropdown(); // Llamar a la función para renderizar el dropdown al inicio
     renderCourses();
 });
-                                  
