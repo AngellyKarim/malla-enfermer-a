@@ -1,0 +1,85 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f9;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.controls button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.controls button:hover {
+    background-color: #0056b3;
+}
+
+#dataView {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#dataView .list-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+#dataView .courses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Estilos para vista móvil cuando se activa el botón */
+#dataView.years-active .list-header,
+#dataView.cycles-active .list-header {
+    flex-direction: row;
+    justify-content: space-around;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+/* Estilos para vista de escritorio */
+@media (min-width: 768px) {
+    #dataView {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    #dataView .list-header,
+    #dataView .courses-list {
+        flex-direction: column;
+        flex: 1;
+    }
+
+    #dataView.years-active .list-header,
+    #dataView.cycles-active .list-header {
+        flex-direction: column;
+    }
+}
